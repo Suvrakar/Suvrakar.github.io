@@ -1,0 +1,51 @@
+*{
+	margin:0px;
+	padding:0px;
+	
+}
+
+footer{
+position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-align: Right;
+  margin-right:50px;
+  
+	
+	
+}
+
+.orange{
+	padding:10px;
+	margin:20px;
+	background-color:orange;
+	
+	
+}
+
+.green{
+	padding:10px;
+	margin:20px;
+	background-color:Green;
+	
+	
+}
+
+.yellow{
+	padding:10px;
+	margin:20px;
+	background-color:Yellow;
+	
+	
+}
+
+.blue{
+	padding:12px;
+	margin:20px;
+	background-color:Blue;
+	
+	
+
