@@ -21,14 +21,14 @@ const PORTFOLIO = {
   leetcode:  'https://leetcode.com/Suvrakar/',
   scholar:   'https://scholar.google.com/',
 
-  /* ── Hero Stats (3 numbers shown under your name) ─────────── */
+  /* ── Hero Stats ────────────────────────────────────────────── */
   stats: [
     { value: '5+',    label: 'Years Experience' },
     { value: '10M+',  label: 'Daily Requests'   },
     { value: '99.9%', label: 'Uptime SLA'        },
   ],
 
-  /* ── About Bio (each string = one paragraph) ───────────────── */
+  /* ── About Bio ──────────────────────────────────────────────── */
   bio: [
     'Full-stack backend engineer building distributed systems, microservices, and cloud-native platforms at scale. Currently at Brainstation 23 PLC — architecting infrastructure for Bangladesh\'s leading digital platforms.',
     'Alongside engineering, I have an active research background in computer vision and machine learning — with thesis work on license plate recognition and DDoS detection. I believe the best engineers are part scientist: rigorous, curious, and comfortable with ambiguity.',
@@ -66,6 +66,16 @@ const PORTFOLIO = {
       ],
     },
     {
+      company:  'Red.Digital Limited',
+      role:     'Software Developer',
+      location: 'Dhaka, Bangladesh (A Robi Axiata Company)',
+      period:   'Q3 2022',
+      highlights: [
+        'Awarded Outstanding Determination for contributions to digital transformation projects.',
+        'Worked on enterprise solutions for Robi Axiata\'s subsidiary digital ventures.',
+      ],
+    },
+    {
       company:  'Hivecore Limited',
       role:     'Software Engineer – II',
       location: 'Dhaka, Bangladesh',
@@ -74,18 +84,6 @@ const PORTFOLIO = {
         'Docker + CI/CD automation — 50% reduction in release cycle time.',
         'GraphQL & REST APIs serving 1M+ users on AWS at 99.9% uptime.',
         'ERP/HRM modules for 1,000+ users in Spring Boot + React (TypeScript).',
-      ],
-    },
-    {
-      company:  'Co-Well Japan',
-      role:     'Software Engineer',
-      location: 'Remote',
-      period:   'Apr 2021 – Jan 2024',
-      highlights: [
-        'Distributed microservices architecture for enterprise SaaS identity platform.',
-        'Auto-scaling, CI/CD on AWS/Kubernetes with end-to-end monitoring.',
-        'Enterprise SSO/Identity Provider for Japanese enterprise clients.',
-        'Multi-tenant auth and federated identity management.',
       ],
     },
     {
@@ -103,13 +101,7 @@ const PORTFOLIO = {
 
   /* ══════════════════════════════════════════════════════════════
      PROJECTS — Add a new project by copying one { } block below
-     ══════════════════════════════════════════════════════════════
-     Fields:
-       name        — Project display name
-       tech        — Array of technology strings (shown as tags)
-       description — Short description (1–3 sentences)
-       link        — URL or null if no public link
-  */
+     ══════════════════════════════════════════════════════════════ */
   projects: [
     {
       name:        'OneID Microservices',
@@ -153,13 +145,8 @@ const PORTFOLIO = {
      RESEARCH — Add a new paper/thesis by copying one { } block
      ══════════════════════════════════════════════════════════════
      Fields:
-       title       — Full paper/thesis title
-       type        — e.g. 'MSc Thesis', 'BSc Thesis', 'Journal Paper', 'Conference Paper'
-       institution — University or publisher
-       year        — Publication year (string)
-       description — 1–2 sentence abstract / summary
-       tags        — Array of keyword strings
-       link        — DOI / URL or null
+       photos — array of image filenames from assets/images/ (or [])
+       link   — DOI / URL or null
   */
   research: [
     {
@@ -167,8 +154,13 @@ const PORTFOLIO = {
       type:        'MSc Thesis',
       institution: 'IAT, BUET',
       year:        '2024',
-      description: 'Computer vision approach to automated toll collection using YOLO-tiny detection and Haar Cascade classifiers for real-time Bangla number-plate OCR in variable lighting conditions.',
-      tags:        ['Computer Vision', 'YOLO', 'OCR', 'Python', 'Deep Learning'],
+      description: 'Real-time, low-cost tolling system tailored for Bangladesh. Hybrid pipeline using YOLOv4-tiny, Haar Cascade, and EasyOCR achieves 91% OCR accuracy with minimal hardware. Backend powered by cloud-based microservices for scalable toll and payment automation.',
+      tags:        ['Computer Vision', 'YOLO', 'EasyOCR', 'Python', 'Microservices'],
+      photos:      [
+        'assets/images/research-poster.jpg',
+        'assets/images/research-thesis-defense.jpg',
+        'assets/images/research-bear-presentation.jpg',
+      ],
       link:        null,
     },
     {
@@ -178,20 +170,21 @@ const PORTFOLIO = {
       year:        '2020',
       description: 'Machine learning approach for real-time detection of Distributed Denial of Service attacks in network traffic using flow-based features and ensemble classifiers.',
       tags:        ['Machine Learning', 'Network Security', 'Python', 'scikit-learn'],
+      photos:      [],
       link:        null,
     },
   ],
 
   /* ── Skills ─────────────────────────────────────────────────── */
   skills: [
-    { category: 'Languages',        items: ['JavaScript ES6+', 'TypeScript', 'Python', 'Java'] },
-    { category: 'Frontend',         items: ['React', 'Next.js'] },
-    { category: 'Backend',          items: ['Node.js', 'Express.js', 'Spring Boot', 'FastAPI', 'Django'] },
-    { category: 'Databases',        items: ['PostgreSQL', 'Redis', 'Elasticsearch'] },
-    { category: 'APIs',             items: ['GraphQL', 'REST', 'gRPC'] },
-    { category: 'Cloud & DevOps',   items: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Jenkins'] },
-    { category: 'AI / ML',          items: ['LangChain', 'OpenAI API', 'Gemini API', 'Agentic Patterns', 'YOLO', 'Computer Vision'] },
-    { category: 'Architecture',     items: ['Microservices', 'Distributed Systems', 'Event-Driven', 'Cloud-Native'] },
+    { category: 'Languages',      items: ['JavaScript ES6+', 'TypeScript', 'Python', 'Java'] },
+    { category: 'Frontend',       items: ['React', 'Next.js'] },
+    { category: 'Backend',        items: ['Node.js', 'Express.js', 'Spring Boot', 'FastAPI', 'Django'] },
+    { category: 'Databases',      items: ['PostgreSQL', 'Redis', 'Elasticsearch'] },
+    { category: 'APIs',           items: ['GraphQL', 'REST', 'gRPC'] },
+    { category: 'Cloud & DevOps', items: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Jenkins'] },
+    { category: 'AI / ML',        items: ['LangChain', 'OpenAI API', 'Gemini API', 'Agentic Patterns', 'YOLO', 'Computer Vision'] },
+    { category: 'Architecture',   items: ['Microservices', 'Distributed Systems', 'Event-Driven', 'Cloud-Native'] },
   ],
 
   /* ── Certifications ─────────────────────────────────────────── */
@@ -205,27 +198,45 @@ const PORTFOLIO = {
     },
   ],
 
-  /* ── Awards ─────────────────────────────────────────────────── */
+  /* ── Awards (photos shown as scrollable strip above the list) ─ */
+  awardPhotos: [
+    { src: 'assets/images/award-ftech.jpg',           caption: 'FTECH 2022 — Outstanding Determination'  },
+    { src: 'assets/images/award-reddigital.jpg',      caption: 'Red.Digital Outstanding Determination'   },
+    { src: 'assets/images/datathon-award.jpg',        caption: 'Robi Datathon 2.0 — Runner-up Award'     },
+    { src: 'assets/images/datathon-group.jpg',        caption: 'Robi Datathon 2.0 — Team Ceremony'       },
+    { src: 'assets/images/research-excellence-cert.jpg', caption: 'Forum 86 Research Excellence 2023'   },
+  ],
+
   awards: [
     {
+      emoji:       '🏆',
       title:       '2nd Runner-up — BEAR Summit 2025',
       event:       'National Semiconductor Symposium',
-      description: 'AI-powered SNAP READ TOLL using YOLO for automated toll collection.',
+      description: 'AI-powered SNAP READ TOLL using YOLO for automated Bangla toll collection.',
     },
     {
+      emoji:       '🔬',
       title:       'Research Excellence Collaborator Award',
-      event:       'Applied Computer Vision Research',
-      description: 'Recognised for contributions to applied computer vision research.',
+      event:       'Forum 86, BUET — May 2023',
+      description: 'Acknowledged as a research contributor in Wireless Communication and Smart Toll Management.',
     },
     {
-      title:       '2nd Runner-up — Datathon 2.0',
+      emoji:       '🥉',
+      title:       '2nd Runner-up — Robi Datathon 2.0',
       event:       'Robi Axiata',
-      description: 'Data analytics and problem solving competition.',
+      description: 'Data analytics and problem solving competition; also awarded Top Data Engineer.',
     },
     {
+      emoji:       '⭐',
       title:       'Employee of the Month',
       event:       'Brainstation 23 PLC — Feb 2023',
       description: 'Exceptional platform reliability contributions.',
+    },
+    {
+      emoji:       '🏅',
+      title:       'Outstanding Determination — Q3 2022',
+      event:       'Red.Digital Limited (A Robi Axiata Company)',
+      description: 'Recognised for determination and impact in digital transformation projects.',
     },
   ],
 
