@@ -10,12 +10,29 @@ const SECTIONS = [
   { id: 'contact',        label: 'Contact'        },
 ];
 
-/* Safe HTML escape */
+/* ── SVG social icons ────────────────────────────────────────── */
+const ICONS = {
+  github: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+  </svg>`,
+
+  linkedin: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>`,
+
+  leetcode: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+  </svg>`,
+
+  scholar: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6L23 9zm-1.93 10.5L5.5 11.12l.91-.5L12 13.5l5.59-2.88.91.5zm6.93 1.06L12 17.5l-5-2.94V12.1l5 2.73 5-2.73zM12 5.19L20.23 9 12 12.81 3.77 9z"/>
+  </svg>`,
+};
+
+/* ── Helpers ─────────────────────────────────────────────────── */
 function h(v) {
   return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
-/* Eyebrow "01 — LABEL" */
 function eyebrow(idx, label) {
   return `<p class="section-eyebrow">${String(idx+1).padStart(2,'0')} &mdash; ${h(label).toUpperCase()}</p>`;
 }
@@ -26,17 +43,19 @@ function renderSidebar() {
   const initials = p.name.split(' ').map(w => w[0]).join('').slice(0,3);
 
   const socials = [
-    p.github   && { label: 'GitHub',   href: p.github   },
-    p.linkedin && { label: 'LinkedIn', href: p.linkedin  },
-    p.leetcode && { label: 'LeetCode', href: p.leetcode  },
-    p.scholar  && { label: 'Scholar',  href: p.scholar   },
+    p.github   && { key: 'github',   label: 'GitHub',   href: p.github   },
+    p.linkedin && { key: 'linkedin', label: 'LinkedIn', href: p.linkedin  },
+    p.leetcode && { key: 'leetcode', label: 'LeetCode', href: p.leetcode  },
+    p.scholar  && { key: 'scholar',  label: 'Scholar',  href: p.scholar   },
   ].filter(Boolean);
 
   return `
 <aside id="sidebar">
   <div class="sidebar-profile">
     <div class="sidebar-avatar">
-      <span class="avatar-initials">${h(initials)}</span>
+      <img src="assets/images/profile.jpg" alt="${h(p.name)}"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="sidebar-avatar-fallback" style="display:none">${h(initials)}</div>
     </div>
     <h1 class="sidebar-name">${h(p.name)}</h1>
     <p class="sidebar-role">${h(p.title)}</p>
@@ -44,7 +63,7 @@ function renderSidebar() {
 
   <div class="sidebar-sep"></div>
 
-  <nav class="sidebar-nav" aria-label="Page sections">
+  <nav class="sidebar-nav" aria-label="Sections">
     <ul>
       ${SECTIONS.map(s =>
         `<li><a href="#${s.id}" class="nav-link" data-section="${s.id}">${h(s.label)}</a></li>`
@@ -54,8 +73,9 @@ function renderSidebar() {
 
   <div class="sidebar-social">
     ${socials.map(s =>
-      `<a href="${h(s.href)}" class="social-link" target="_blank" rel="noopener noreferrer">
-        <span class="social-arrow">↗</span>${h(s.label)}
+      `<a href="${h(s.href)}" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="${h(s.label)}">
+        ${ICONS[s.key] || ''}
+        ${h(s.label)}
       </a>`
     ).join('\n    ')}
   </div>
@@ -65,31 +85,48 @@ function renderSidebar() {
 /* ─── Hero ───────────────────────────────────────────────────── */
 function renderHero() {
   const p = PORTFOLIO;
+  const [first, ...rest] = p.name.split(' ');
+
   return `
 <section id="hero">
-  <div class="hero-eyebrow">
-    <span class="hero-dot"></span>
-    Available for senior roles &nbsp;&middot;&nbsp; ${h(p.location)}
+  <!-- Left: text -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-dot"></span>
+      Available for senior roles &nbsp;&middot;&nbsp; ${h(p.location)}
+    </div>
+
+    <h1 class="hero-name">${h(first)}<br><em>${h(rest.join(' '))}</em></h1>
+    <p class="hero-title">${h(p.title)} &mdash; Distributed Systems &middot; AI-Native Engineering</p>
+
+    <div class="hero-divider"></div>
+    <p class="hero-bio">${h(p.bio[0])}</p>
+
+    <div class="hero-stats">
+      ${p.stats.map(s => `
+      <div class="hero-stat">
+        <span class="stat-value">${h(s.value)}</span>
+        <span class="stat-label">${h(s.label)}</span>
+      </div>`).join('')}
+    </div>
+
+    <div class="hero-ctas">
+      <a href="mailto:${h(p.email)}" class="btn btn-primary">Get in Touch</a>
+      <a href="#projects" class="btn btn-secondary">View Work &darr;</a>
+    </div>
   </div>
 
-  <h1 class="hero-name">${h(p.name.split(' ')[0])} <em>${h(p.name.split(' ').slice(1).join(' '))}</em></h1>
-  <p class="hero-title">${h(p.title)} &mdash; Distributed Systems &middot; AI-Native Engineering</p>
-
-  <div class="hero-divider"></div>
-
-  <p class="hero-bio">${h(p.bio[0])}</p>
-
-  <div class="hero-stats">
-    ${p.stats.map(s => `
-    <div class="hero-stat">
-      <span class="stat-value">${h(s.value)}</span>
-      <span class="stat-label">${h(s.label)}</span>
-    </div>`).join('')}
-  </div>
-
-  <div class="hero-ctas">
-    <a href="mailto:${h(p.email)}" class="btn btn-primary">Get in Touch</a>
-    <a href="#projects" class="btn btn-secondary">View Work &darr;</a>
+  <!-- Right: portrait -->
+  <div class="hero-photo-panel">
+    <div class="hero-photo-frame">
+      <div class="hero-photo-wrap">
+        <img src="assets/images/profile.jpg" alt="${h(p.name)}" loading="eager">
+      </div>
+      <div class="hero-photo-badge">
+        <span class="badge-dot"></span>
+        <span class="badge-text">Open to Opportunities</span>
+      </div>
+    </div>
   </div>
 </section>`;
 }
@@ -101,7 +138,6 @@ function renderAbout() {
 <section id="about" class="section">
   ${eyebrow(0, 'About')}
   <h2 class="section-title">Engineer &amp; Researcher</h2>
-
   <div class="about-grid">
     <div class="about-text">
       ${p.bio.map(b => `<p>${h(b)}</p>`).join('\n      ')}
@@ -141,8 +177,9 @@ function renderExperience() {
       <div class="exp-right">
         <p class="exp-role">${h(e.role)}</p>
         <ul class="exp-bullets">
-          ${e.highlights.map(hl => `
-          <li><span class="exp-bullet-dot"></span>${h(hl)}</li>`).join('')}
+          ${e.highlights.map(hl =>
+            `<li><span class="exp-bullet-dot"></span>${h(hl)}</li>`
+          ).join('')}
         </ul>
       </div>
     </div>`).join('')}
@@ -165,9 +202,7 @@ function renderProjects() {
         ${p.tech.map(t => `<span class="tech-tag">${h(t)}</span>`).join('')}
       </div>
       <p class="project-desc">${h(p.description)}</p>
-      ${p.link
-        ? `<a href="${h(p.link)}" class="project-link" target="_blank" rel="noopener noreferrer">Visit Project &rarr;</a>`
-        : ''}
+      ${p.link ? `<a href="${h(p.link)}" class="project-link" target="_blank" rel="noopener noreferrer">Visit Project &rarr;</a>` : ''}
     </div>`).join('')}
   </div>
 </section>`;
@@ -214,7 +249,7 @@ function renderResearch() {
       <div class="research-photos">
         ${r.photos.map(src => `
         <div class="research-photo">
-          <img src="${h(src)}" alt="Research photo" loading="lazy">
+          <img src="${h(src)}" alt="Research" loading="lazy">
         </div>`).join('')}
       </div>` : ''}
       ${r.link ? `<a href="${h(r.link)}" class="research-link" target="_blank" rel="noopener noreferrer">View Paper &rarr;</a>` : ''}
@@ -225,7 +260,6 @@ function renderResearch() {
 
 /* ─── Certifications + Awards ────────────────────────────────── */
 function renderCertifications() {
-  const iconMap = { '🏆': '🏆', '🔬': '🔬', '🥉': '🥉', '⭐': '⭐', '🏅': '🏅' };
   return `
 <section id="certifications" class="section">
   ${eyebrow(5, 'Certifications')}
@@ -240,13 +274,13 @@ function renderCertifications() {
         ${c.code  ? `<span class="cert-code">${h(c.code)}</span>` : ''}
         ${c.score ? `<span class="cert-score">${h(c.score)}</span>` : ''}
       </div>
-      ${c.link ? `<a href="${h(c.link)}" class="cert-link" target="_blank" rel="noopener noreferrer">Verify &rarr;</a>` : ''}
+      ${c.link ? `<a href="${h(c.link)}" class="cert-link" target="_blank" rel="noopener noreferrer">Verify Certificate &rarr;</a>` : ''}
     </div>`).join('')}
   </div>
 
   <p class="awards-eyebrow">Awards &amp; Recognition</p>
 
-  ${PORTFOLIO.awardPhotos && PORTFOLIO.awardPhotos.length ? `
+  ${PORTFOLIO.awardPhotos?.length ? `
   <div class="photo-strip">
     ${PORTFOLIO.awardPhotos.map(p => `
     <div class="strip-photo" title="${h(p.caption)}">
@@ -272,11 +306,11 @@ function renderCertifications() {
 function renderContact() {
   const p = PORTFOLIO;
   const rows = [
-    p.email    && { label: 'Email',    val: p.email,                            href: `mailto:${p.email}`  },
-    p.github   && { label: 'GitHub',   val: 'github.com/Suvrakar',              href: p.github             },
-    p.linkedin && { label: 'LinkedIn', val: 'linkedin.com/in/suvra123',         href: p.linkedin           },
-    p.phone    && { label: 'Phone',    val: p.phone,                            href: `tel:${p.phone}`     },
-    p.leetcode && { label: 'LeetCode', val: 'leetcode.com/Suvrakar',            href: p.leetcode           },
+    p.email    && { label: 'Email',    val: p.email,                  href: `mailto:${p.email}`  },
+    p.github   && { label: 'GitHub',   val: 'github.com/Suvrakar',    href: p.github             },
+    p.linkedin && { label: 'LinkedIn', val: 'linkedin.com/in/suvra123',href: p.linkedin          },
+    p.phone    && { label: 'Phone',    val: p.phone,                  href: `tel:${p.phone}`     },
+    p.leetcode && { label: 'LeetCode', val: 'leetcode.com/Suvrakar',  href: p.leetcode           },
   ].filter(Boolean);
 
   return `
@@ -304,18 +338,12 @@ function renderFooter() {
   return `<footer>${h(PORTFOLIO.name)} &mdash; ${new Date().getFullYear()} &mdash; suvrakar.github.io</footer>`;
 }
 
-/* ─── Hamburger ──────────────────────────────────────────────── */
-function renderHamburger() {
-  return `
-<button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-  <span></span><span></span><span></span>
-</button>`;
-}
-
 /* ─── Full render ────────────────────────────────────────────── */
 function render() {
   document.getElementById('app').innerHTML =
-    renderHamburger() +
+    `<button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>` +
     renderSidebar() +
     `<main id="main">` +
       renderHero() +
@@ -330,7 +358,7 @@ function render() {
     `</main>`;
 }
 
-/* ─── Active nav highlight ───────────────────────────────────── */
+/* ─── Active nav via IntersectionObserver ────────────────────── */
 function setupNav() {
   const links = document.querySelectorAll('.nav-link');
   const io = new IntersectionObserver(entries => {
