@@ -207,19 +207,24 @@ function renderAbout() {
         <p class="about-card-label">Specialization</p>
         <p class="about-card-text">${h(p.specialization)}</p>
       </div>
-      <div class="edu-list">
-        ${p.education.map(e => `
-        <div class="edu-item">
-          ${orgLogo({ logo: e.logo, initials: e.initials, logoBg: e.logoBg, link: e.link, alt: e.institution })}
-          <div class="edu-body">
-            <p class="edu-degree">${h(e.degree)}</p>
-            <p class="edu-meta">
-              ${e.link
-                ? `<a href="${h(e.link)}" target="_blank" rel="noopener noreferrer" style="color:inherit">${h(e.institution)}</a>`
-                : h(e.institution)}
-              &middot; ${h(e.year)}
-            </p>
-            ${e.thesis ? `<p class="edu-thesis">${h(e.thesis)}</p>` : ''}
+      <div class="tl-wrap edu-wrap">
+        ${p.education.map((e, i) => `
+        <div class="tl-entry" style="--tl-delay:${(i * 0.12 + 0.06).toFixed(2)}s">
+          <div class="tl-pip"></div>
+          <div class="tl-body">
+            <div class="edu-inner">
+              ${orgLogo({ logo: e.logo, initials: e.initials, logoBg: e.logoBg, link: e.link, alt: e.institution })}
+              <div>
+                <p class="edu-degree">${h(e.degree)}</p>
+                <p class="edu-meta">
+                  ${e.link
+                    ? `<a href="${h(e.link)}" target="_blank" rel="noopener noreferrer" style="color:inherit">${h(e.institution)}</a>`
+                    : h(e.institution)}
+                  &middot; ${h(e.year)}
+                </p>
+                ${e.thesis ? `<p class="edu-thesis">${h(e.thesis)}</p>` : ''}
+              </div>
+            </div>
           </div>
         </div>`).join('')}
       </div>
@@ -230,34 +235,40 @@ function renderAbout() {
 
 /* ─── Experience ─────────────────────────────────────────────── */
 function renderExperience() {
+  const entries = PORTFOLIO.experience.map((e, i) => {
+    const isActive = /present/i.test(e.period);
+    return `
+    <div class="tl-entry${isActive ? ' tl-active' : ''}" style="--tl-delay:${(i * 0.1).toFixed(2)}s">
+      <div class="tl-pip"></div>
+      <div class="tl-body">
+        <div class="exp-hd">
+          <div class="exp-hd-main">
+            ${orgLogo({ logo: e.logo, initials: e.initials, logoBg: e.logoBg, link: e.link, alt: e.company })}
+            <div class="exp-hd-text">
+              ${e.link
+                ? `<a href="${h(e.link)}" class="exp-co-link" target="_blank" rel="noopener noreferrer">
+                     <h3 class="exp-company">${h(e.company)}</h3>${EXT}
+                   </a>`
+                : `<h3 class="exp-company">${h(e.company)}</h3>`}
+              <p class="exp-role">${h(e.role)}</p>
+              <p class="exp-loc">${h(e.location)}</p>
+            </div>
+          </div>
+          <span class="exp-period-badge">${h(e.period)}</span>
+        </div>
+        <ul class="exp-bullets">
+          ${e.highlights.map(hl => `<li><span class="exp-bullet-dot"></span>${h(hl)}</li>`).join('')}
+        </ul>
+      </div>
+    </div>`;
+  }).join('');
+
   return `
 <section id="experience" class="section">
   ${eyebrow(1, 'Experience')}
   <h2 class="section-title">Work History</h2>
-  <div class="exp-list">
-    ${PORTFOLIO.experience.map(e => `
-    <div class="exp-item">
-      <div class="exp-left">
-        ${orgLogo({ logo: e.logo, initials: e.initials, logoBg: e.logoBg, link: e.link, alt: e.company })}
-        <div class="exp-company-row" style="margin-top:12px">
-          ${e.link
-            ? `<a href="${h(e.link)}" class="exp-company-link" target="_blank" rel="noopener noreferrer">
-                <h3 class="exp-company">${h(e.company)}</h3>${EXT}
-               </a>`
-            : `<h3 class="exp-company">${h(e.company)}</h3>`}
-        </div>
-        <p class="exp-period">${h(e.period)}</p>
-        <p class="exp-location">${h(e.location)}</p>
-      </div>
-      <div class="exp-right">
-        <p class="exp-role">${h(e.role)}</p>
-        <ul class="exp-bullets">
-          ${e.highlights.map(hl =>
-            `<li><span class="exp-bullet-dot"></span>${h(hl)}</li>`
-          ).join('')}
-        </ul>
-      </div>
-    </div>`).join('')}
+  <div class="tl-wrap">
+    ${entries}
   </div>
 </section>`;
 }
@@ -606,6 +617,22 @@ function setupLightbox() {
   });
 }
 
+/* ─── Timeline scroll-reveal ─────────────────────────────────── */
+function setupTimeline() {
+  const entries = document.querySelectorAll('.tl-entry');
+  if (!entries.length) return;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('tl-visible');
+      io.unobserve(entry.target);          /* fire once */
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.tl-entry').forEach(el => io.observe(el));
+}
+
 /* ─── Skills filter ──────────────────────────────────────────── */
 function setupSkillFilters() {
   const filtersEl = document.querySelector('.skills-filters');
@@ -632,4 +659,5 @@ document.addEventListener('DOMContentLoaded', () => {
   setupMobileMenu();
   setupLightbox();
   setupSkillFilters();
+  setupTimeline();
 });
