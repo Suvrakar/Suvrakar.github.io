@@ -29,6 +29,47 @@ const ICONS = {
   </svg>`,
 };
 
+/* ── Tech skill icon metadata ────────────────────────────────── */
+/* icon: 'di'  → devicon CSS class (devicon.min.css must be loaded)  */
+/*       'img' → <img> from Simple Icons CDN (no dep needed)         */
+/*       'txt' → styled text initials (abstract concepts)            */
+const SKILL_META = {
+  'JavaScript ES6+': { icon: 'di',  cls: 'devicon-javascript-plain colored',               accent: '#F7DF1E' },
+  'TypeScript':      { icon: 'di',  cls: 'devicon-typescript-plain colored',               accent: '#3178C6' },
+  'Python':          { icon: 'di',  cls: 'devicon-python-plain colored',                   accent: '#3776AB' },
+  'Java':            { icon: 'di',  cls: 'devicon-java-plain colored',                     accent: '#ED8B00' },
+  'React':           { icon: 'di',  cls: 'devicon-react-original colored',                 accent: '#61DAFB' },
+  'Next.js':         { icon: 'di',  cls: 'devicon-nextjs-plain',                           accent: '#111111' },
+  'Node.js':         { icon: 'di',  cls: 'devicon-nodejs-plain colored',                   accent: '#339933' },
+  'Express.js':      { icon: 'di',  cls: 'devicon-express-original',                       accent: '#444444' },
+  'Spring Boot':     { icon: 'di',  cls: 'devicon-spring-plain colored',                   accent: '#6DB33F' },
+  'FastAPI':         { icon: 'di',  cls: 'devicon-fastapi-plain colored',                  accent: '#009688' },
+  'Django':          { icon: 'di',  cls: 'devicon-django-plain colored',                   accent: '#0C4B33' },
+  'PostgreSQL':      { icon: 'di',  cls: 'devicon-postgresql-plain colored',               accent: '#336791' },
+  'Redis':           { icon: 'di',  cls: 'devicon-redis-plain colored',                    accent: '#DC382D' },
+  'Elasticsearch':   { icon: 'di',  cls: 'devicon-elasticsearch-plain colored',            accent: '#005571' },
+  'GraphQL':         { icon: 'di',  cls: 'devicon-graphql-plain colored',                  accent: '#E10098' },
+  'Docker':          { icon: 'di',  cls: 'devicon-docker-plain colored',                   accent: '#2496ED' },
+  'Kubernetes':      { icon: 'di',  cls: 'devicon-kubernetes-plain colored',               accent: '#326CE5' },
+  'Jenkins':         { icon: 'di',  cls: 'devicon-jenkins-plain colored',                  accent: '#D33833' },
+  /* Simple Icons CDN — brand SVGs that aren't in devicon */
+  'AWS':             { icon: 'img', src: 'https://cdn.simpleicons.org/amazonaws/FF9900',           accent: '#FF9900' },
+  'LangChain':       { icon: 'img', src: 'https://cdn.simpleicons.org/langchain/1C3A5E',           accent: '#1C3A5E' },
+  'OpenAI API':      { icon: 'img', src: 'https://cdn.simpleicons.org/openai/10A37F',              accent: '#10A37F' },
+  'Gemini API':      { icon: 'img', src: 'https://cdn.simpleicons.org/googlegemini/4285F4',        accent: '#4285F4' },
+  /* Styled text initials for abstract / framework-agnostic concepts */
+  'REST':            { icon: 'txt', text: 'REST',    accent: '#4B5563' },
+  'gRPC':            { icon: 'txt', text: 'gRPC',    accent: '#244C5A' },
+  'CI/CD':           { icon: 'txt', text: 'CI/CD',   accent: '#374151' },
+  'Agentic Patterns':{ icon: 'txt', text: 'AP',      accent: '#7C3AED' },
+  'YOLO':            { icon: 'txt', text: 'YOLO',    accent: '#E05535' },
+  'Computer Vision': { icon: 'txt', text: 'CV',      accent: '#059669' },
+  'Microservices':   { icon: 'txt', text: 'MS',      accent: '#0F172A' },
+  'Distributed Systems': { icon: 'txt', text: 'DS',  accent: '#1E293B' },
+  'Event-Driven':    { icon: 'txt', text: 'ED',      accent: '#374151' },
+  'Cloud-Native':    { icon: 'txt', text: 'CN',      accent: '#0EA5E9' },
+};
+
 /* ── Helpers ─────────────────────────────────────────────────── */
 function h(v) {
   return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -244,18 +285,39 @@ function renderProjects() {
 
 /* ─── Skills ─────────────────────────────────────────────────── */
 function renderSkills() {
+  const cats = PORTFOLIO.skills.map(s => s.category);
+
+  const filterBtns = ['All', ...cats].map((c, i) =>
+    `<button class="skill-filter-btn${i === 0 ? ' active' : ''}" data-cat="${i === 0 ? 'all' : h(c)}">${h(c)}</button>`
+  ).join('');
+
+  const cards = PORTFOLIO.skills.flatMap(s =>
+    s.items.map(name => {
+      const m = SKILL_META[name] || { icon: 'txt', text: name.slice(0, 2).toUpperCase(), accent: '#6B7280' };
+      let iconHtml;
+      if (m.icon === 'di') {
+        iconHtml = `<i class="${h(m.cls)}" aria-hidden="true"></i>`;
+      } else if (m.icon === 'img') {
+        iconHtml = `<img src="${h(m.src)}" alt="${h(name)}" width="38" height="38" loading="lazy">`;
+      } else {
+        iconHtml = `<div class="skill-txt-icon" style="background:${h(m.accent)}">${h(m.text || '?')}</div>`;
+      }
+      return `<div class="skill-card" data-cat="${h(s.category)}" style="--sk-accent:${h(m.accent)}">
+        <div class="skill-icon-wrap">${iconHtml}</div>
+        <span class="skill-label">${h(name)}</span>
+      </div>`;
+    })
+  ).join('');
+
   return `
 <section id="skills" class="section">
   ${eyebrow(3, 'Skills')}
   <h2 class="section-title">Technical Stack</h2>
+  <div class="skills-filters" role="group" aria-label="Filter skills by category">
+    ${filterBtns}
+  </div>
   <div class="skills-grid">
-    ${PORTFOLIO.skills.map(s => `
-    <div class="skill-cat">
-      <p class="skill-cat-name">${h(s.category)}</p>
-      <div class="skill-tags">
-        ${s.items.map(i => `<span class="skill-tag">${h(i)}</span>`).join('')}
-      </div>
-    </div>`).join('')}
+    ${cards}
   </div>
 </section>`;
 }
@@ -544,10 +606,30 @@ function setupLightbox() {
   });
 }
 
+/* ─── Skills filter ──────────────────────────────────────────── */
+function setupSkillFilters() {
+  const filtersEl = document.querySelector('.skills-filters');
+  if (!filtersEl) return;
+
+  filtersEl.addEventListener('click', e => {
+    const btn = e.target.closest('.skill-filter-btn');
+    if (!btn) return;
+
+    filtersEl.querySelectorAll('.skill-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.skill-card').forEach(card => {
+      card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+    });
+  });
+}
+
 /* ─── Boot ───────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   render();
   setupNav();
   setupMobileMenu();
   setupLightbox();
+  setupSkillFilters();
 });
