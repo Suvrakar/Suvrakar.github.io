@@ -16,17 +16,20 @@ Alongside engineering, I have an active research background in **computer vision
 
 ---
 
-## Quick Links
+## Online Presence
 
-| Platform | Link |
-|---|---|
-| 🌐 Portfolio | [suvrakar.github.io](https://suvrakar.github.io) |
-| 💼 LinkedIn | [linkedin.com/in/suvra123](https://www.linkedin.com/in/suvra123/) |
-| 🐙 GitHub | [github.com/Suvrakar](https://github.com/Suvrakar) |
-| 🎓 Google Scholar | [scholar.google.com/citations?user=neqL4cgAAAAJ](https://scholar.google.com/citations?user=neqL4cgAAAAJ&hl=en) |
-| 💻 LeetCode | [leetcode.com/Suvrakar](https://leetcode.com/Suvrakar/) |
-| 🏅 AWS Credly | [SAA-C03 Badge](https://www.credly.com/badges/c9c992ba-5222-484b-ae01-1906c1baad64/public_url) |
-| 📧 Email | [kar.suvra6682@gmail.com](mailto:kar.suvra6682@gmail.com) |
+| Platform | Link | Notes |
+|---|---|---|
+| 🌐 Portfolio | [suvrakar.github.io](https://suvrakar.github.io) | This site |
+| 💼 LinkedIn | [linkedin.com/in/suvra123](https://www.linkedin.com/in/suvra123/) | Professional profile |
+| 🐙 GitHub | [github.com/Suvrakar](https://github.com/Suvrakar) | Open-source & projects |
+| ✍️ Medium | [suvra1.medium.com](https://suvra1.medium.com/) | Technical writing |
+| 🎓 Google Scholar | [citations?user=neqL4cgAAAAJ](https://scholar.google.com/citations?user=neqL4cgAAAAJ&hl=en) | Research publications |
+| 💻 LeetCode | [leetcode.com/Suvrakar](https://leetcode.com/Suvrakar/) | Competitive programming |
+| 🏅 AWS Credly | [SAA-C03 Badge](https://www.credly.com/badges/c9c992ba-5222-484b-ae01-1906c1baad64/public_url) | Verified certification |
+| 📧 Email | [kar.suvra6682@gmail.com](mailto:kar.suvra6682@gmail.com) | Direct contact |
+| 📘 Facebook | [facebook.com/karsuvra](https://www.facebook.com/karsuvra/) | Personal |
+| 📸 Instagram | [instagram.com/__suvra_](https://www.instagram.com/__suvra_/) | Personal |
 
 ---
 
@@ -64,6 +67,29 @@ Alongside engineering, I have an active research background in **computer vision
 ### BSc. Computer Science & Engineering
 **BRAC University, Dhaka** · 2020
 *Thesis: Real-Time DDoS Attack Detection Using Machine Learning*
+
+---
+
+## Writing (Medium)
+
+Technical articles published at [suvra1.medium.com](https://suvra1.medium.com/):
+
+| Title | Date |
+|---|---|
+| [Mastering Java Thread Safety](https://suvra1.medium.com/mastering-java-thread-safety-a-guide-to-writing-reliable-multithreaded-code-fbb5f5af23c9) | Feb 2025 |
+| [Java == vs .equals(): Why 128 == 128 Can Be False](https://suvra1.medium.com/why-1-1-is-true-but-128-128-can-be-false-in-java-use-equals-0778366c5497) | Feb 2025 |
+| [Decoding Memory Leaks in React JS](https://suvra1.medium.com/decoding-memory-leaks-in-react-js-strategies-for-efficient-development-049aa5d2fe46) | Jan 2024 |
+| [React State Management: useState vs useContext vs Redux vs useReducer](https://suvra1.medium.com/react-state-management-comparetive-study-usestate-usecontext-redux-or-usereducer-3280282f6433) | 2023 |
+| [JWT Authentication with Passport.js](https://suvra1.medium.com/unlocking-the-power-of-jwt-authentication-with-passport-js-785d528d9c72) | Oct 2023 |
+
+---
+
+## Notable GitHub Projects
+
+| Project | Description | Live |
+|---|---|---|
+| [nutririon-bee-course-hub](https://github.com/Suvrakar/nutririon-bee-course-hub) | LMS for nutrition professionals — 200+ users, MFS payments (bKash/Nagad), cert automation | [course.nutritionbee.net](https://course.nutritionbee.net/) |
+| [Suvrakar.github.io](https://github.com/Suvrakar/Suvrakar.github.io) | This portfolio | [suvrakar.github.io](https://suvrakar.github.io) |
 
 ---
 

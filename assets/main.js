@@ -27,6 +27,10 @@ const ICONS = {
   scholar: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6L23 9zm-1.93 10.5L5.5 11.12l.91-.5L12 13.5l5.59-2.88.91.5zm6.93 1.06L12 17.5l-5-2.94V12.1l5 2.73 5-2.73zM12 5.19L20.23 9 12 12.81 3.77 9z"/>
   </svg>`,
+
+  medium: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+  </svg>`,
 };
 
 /* ── Tech skill icon metadata ────────────────────────────────── */
@@ -105,6 +109,7 @@ function renderSidebar() {
   const socials = [
     p.github   && { key: 'github',   label: 'GitHub',   href: p.github   },
     p.linkedin && { key: 'linkedin', label: 'LinkedIn', href: p.linkedin  },
+    p.medium   && { key: 'medium',   label: 'Medium',   href: p.medium    },
     p.leetcode && { key: 'leetcode', label: 'LeetCode', href: p.leetcode  },
     p.scholar  && { key: 'scholar',  label: 'Scholar',  href: p.scholar   },
   ].filter(Boolean);
@@ -413,11 +418,12 @@ function renderCertifications() {
 function renderContact() {
   const p = PORTFOLIO;
   const rows = [
-    p.email    && { label: 'Email',    val: p.email,                  href: `mailto:${p.email}`  },
-    p.github   && { label: 'GitHub',   val: 'github.com/Suvrakar',    href: p.github             },
-    p.linkedin && { label: 'LinkedIn', val: 'linkedin.com/in/suvra123',href: p.linkedin          },
-    p.phone    && { label: 'Phone',    val: p.phone,                  href: `tel:${p.phone}`     },
-    p.leetcode && { label: 'LeetCode', val: 'leetcode.com/Suvrakar',  href: p.leetcode           },
+    p.email    && { label: 'Email',    val: p.email,                   href: `mailto:${p.email}`  },
+    p.github   && { label: 'GitHub',   val: 'github.com/Suvrakar',     href: p.github             },
+    p.linkedin && { label: 'LinkedIn', val: 'linkedin.com/in/suvra123', href: p.linkedin           },
+    p.medium   && { label: 'Medium',   val: 'suvra1.medium.com',        href: p.medium             },
+    p.phone    && { label: 'Phone',    val: p.phone,                   href: `tel:${p.phone}`     },
+    p.leetcode && { label: 'LeetCode', val: 'leetcode.com/Suvrakar',   href: p.leetcode           },
   ].filter(Boolean);
 
   return `

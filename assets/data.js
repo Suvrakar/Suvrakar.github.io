@@ -19,6 +19,7 @@ const PORTFOLIO = {
   github:    'https://github.com/Suvrakar',
   linkedin:  'https://www.linkedin.com/in/suvra123/',
   leetcode:  'https://leetcode.com/Suvrakar/',
+  medium:    'https://suvra1.medium.com/',
   scholar:   'https://scholar.google.com/citations?user=neqL4cgAAAAJ&hl=en',
 
   /* ── Hero Stats ────────────────────────────────────────────── */
