@@ -67,7 +67,7 @@ const PORTFOLIO = {
       location: 'Dhaka, Bangladesh',
       period:   'Apr 2021 – Present',
       link:     'https://brainstation-23.com',
-      logo:     'https://logo.clearbit.com/brainstation-23.com',
+      logo:     'assets/images/logos/brainstation23.svg',
       initials: 'B23',
       logoBg:   '#0055B3',
       highlights: [
@@ -83,7 +83,7 @@ const PORTFOLIO = {
       location: 'Dhaka, Bangladesh · A Robi Axiata Company',
       period:   'Q3 2022',
       link:     'https://reddigital.com.bd',
-      logo:     'https://logo.clearbit.com/reddigital.com.bd',
+      logo:     'assets/images/logos/reddigital.png',
       initials: 'RD',
       logoBg:   '#E2231A',
       highlights: [
@@ -97,7 +97,7 @@ const PORTFOLIO = {
       location: 'Dhaka, Bangladesh',
       period:   'Apr 2022 – May 2024',
       link:     null,
-      logo:     null,
+      logo:     'assets/images/logos/hivecore.png',
       initials: 'HC',
       logoBg:   '#2D6A4F',
       highlights: [
