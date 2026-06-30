@@ -431,9 +431,123 @@ function setupMobileMenu() {
   document.getElementById('mobile-overlay').addEventListener('click', closeMobileMenu);
 }
 
+/* ─── Lightbox ───────────────────────────────────────────────── */
+function setupLightbox() {
+  /* Inject DOM once */
+  const lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-modal', 'true');
+  lb.setAttribute('aria-label', 'Image viewer');
+  lb.innerHTML = `
+    <div class="lb-inner">
+      <div class="lb-img-frame"><img id="lb-img" src="" alt=""></div>
+      <p class="lb-caption" id="lb-caption"></p>
+      <p class="lb-counter" id="lb-counter"></p>
+    </div>
+    <button class="lb-close" id="lb-close" aria-label="Close">&#10005;</button>
+    <button class="lb-arrow prev" id="lb-prev" aria-label="Previous">&#8592;</button>
+    <button class="lb-arrow next" id="lb-next" aria-label="Next">&#8594;</button>
+  `;
+  document.body.appendChild(lb);
+
+  const lbImg     = lb.querySelector('#lb-img');
+  const lbCaption = lb.querySelector('#lb-caption');
+  const lbCounter = lb.querySelector('#lb-counter');
+  const lbClose   = lb.querySelector('#lb-close');
+  const lbPrev    = lb.querySelector('#lb-prev');
+  const lbNext    = lb.querySelector('#lb-next');
+
+  /* All gallery images collected at open time */
+  let gallery = [];
+  let current = 0;
+  let isOpen  = false;
+
+  /* Collect all currently rendered gallery images */
+  function getGallery() {
+    return Array.from(document.querySelectorAll('.research-photo img, .strip-photo img'));
+  }
+
+  function showSlide(idx) {
+    const slide = gallery[idx];
+    if (!slide) return;
+    current = idx;
+
+    /* Smooth swap: fade out → swap src → fade in */
+    lbImg.style.opacity = '0';
+    lbImg.style.transform = 'scale(0.96)';
+    setTimeout(() => {
+      lbImg.src = slide.src;
+      lbImg.alt = slide.alt || '';
+      lbCaption.textContent = slide.title || slide.alt || '';
+      lbCaption.style.display = lbCaption.textContent ? 'block' : 'none';
+      lbCounter.textContent  = gallery.length > 1 ? `${idx + 1} / ${gallery.length}` : '';
+      lbPrev.disabled = idx === 0;
+      lbNext.disabled = idx === gallery.length - 1;
+      lbImg.style.opacity = '1';
+      lbImg.style.transform = 'scale(1)';
+    }, 130);
+  }
+
+  function openAt(idx) {
+    gallery = getGallery();
+    lbImg.style.transition = 'opacity 0.13s ease, transform 0.18s ease';
+    showSlide(idx);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    isOpen = true;
+    requestAnimationFrame(() => lbClose.focus());
+  }
+
+  function close() {
+    if (!isOpen) return;
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    isOpen = false;
+    setTimeout(() => { lbImg.src = ''; }, 350);
+  }
+
+  /* Controls */
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', () => showSlide(current - 1));
+  lbNext.addEventListener('click', () => showSlide(current + 1));
+
+  /* Click backdrop to close */
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+
+  /* Keyboard */
+  document.addEventListener('keydown', (e) => {
+    if (!isOpen) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft'  && current > 0)              showSlide(current - 1);
+    if (e.key === 'ArrowRight' && current < gallery.length - 1) showSlide(current + 1);
+  });
+
+  /* Touch swipe */
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) < 40) return;
+    if (dx < 0 && current < gallery.length - 1) showSlide(current + 1);
+    if (dx > 0 && current > 0)                  showSlide(current - 1);
+  });
+
+  /* Delegate click on any photo thumbnail */
+  document.addEventListener('click', (e) => {
+    const photo = e.target.closest('.research-photo, .strip-photo');
+    if (!photo) return;
+    const imgs = getGallery();
+    const clicked = photo.querySelector('img');
+    const idx = imgs.indexOf(clicked);
+    if (idx !== -1) openAt(idx);
+  });
+}
+
 /* ─── Boot ───────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   render();
   setupNav();
   setupMobileMenu();
+  setupLightbox();
 });
