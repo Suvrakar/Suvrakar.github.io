@@ -37,6 +37,25 @@ function eyebrow(idx, label) {
   return `<p class="section-eyebrow">${String(idx+1).padStart(2,'0')} &mdash; ${h(label).toUpperCase()}</p>`;
 }
 
+/* Org logo: tries Clearbit, falls back to coloured initials */
+function orgLogo({ logo, initials, logoBg, link, alt }) {
+  const img = logo
+    ? `<img src="${h(logo)}" alt="${h(alt)}"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+       <div class="org-logo-fallback" style="display:none;background:${h(logoBg)}">${h(initials)}</div>`
+    : `<div class="org-logo-fallback" style="background:${h(logoBg)}">${h(initials)}</div>`;
+
+  const inner = `<div class="org-logo">${img}</div>`;
+  return link
+    ? `<a href="${h(link)}" class="org-logo-link" target="_blank" rel="noopener noreferrer" title="${h(alt)}">${inner}</a>`
+    : `<div class="org-logo-link">${inner}</div>`;
+}
+
+/* External link icon SVG */
+const EXT = `<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+  <path d="M2 10L10 2M4.5 2H10v5.5"/>
+</svg>`;
+
 /* ─── Sidebar ────────────────────────────────────────────────── */
 function renderSidebar() {
   const p = PORTFOLIO;
@@ -150,9 +169,17 @@ function renderAbout() {
       <div class="edu-list">
         ${p.education.map(e => `
         <div class="edu-item">
-          <p class="edu-degree">${h(e.degree)}</p>
-          <p class="edu-meta">${h(e.institution)} &middot; ${h(e.year)}</p>
-          ${e.thesis ? `<p class="edu-thesis">${h(e.thesis)}</p>` : ''}
+          ${orgLogo({ logo: e.logo, initials: e.initials, logoBg: e.logoBg, link: e.link, alt: e.institution })}
+          <div class="edu-body">
+            <p class="edu-degree">${h(e.degree)}</p>
+            <p class="edu-meta">
+              ${e.link
+                ? `<a href="${h(e.link)}" target="_blank" rel="noopener noreferrer" style="color:inherit">${h(e.institution)}</a>`
+                : h(e.institution)}
+              &middot; ${h(e.year)}
+            </p>
+            ${e.thesis ? `<p class="edu-thesis">${h(e.thesis)}</p>` : ''}
+          </div>
         </div>`).join('')}
       </div>
     </div>
@@ -170,7 +197,14 @@ function renderExperience() {
     ${PORTFOLIO.experience.map(e => `
     <div class="exp-item">
       <div class="exp-left">
-        <h3 class="exp-company">${h(e.company)}</h3>
+        ${orgLogo({ logo: e.logo, initials: e.initials, logoBg: e.logoBg, link: e.link, alt: e.company })}
+        <div class="exp-company-row" style="margin-top:12px">
+          ${e.link
+            ? `<a href="${h(e.link)}" class="exp-company-link" target="_blank" rel="noopener noreferrer">
+                <h3 class="exp-company">${h(e.company)}</h3>${EXT}
+               </a>`
+            : `<h3 class="exp-company">${h(e.company)}</h3>`}
+        </div>
         <p class="exp-period">${h(e.period)}</p>
         <p class="exp-location">${h(e.location)}</p>
       </div>
