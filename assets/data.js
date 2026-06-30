@@ -19,7 +19,7 @@ const PORTFOLIO = {
   github:    'https://github.com/Suvrakar',
   linkedin:  'https://www.linkedin.com/in/suvra123/',
   leetcode:  'https://leetcode.com/Suvrakar/',
-  scholar:   'https://scholar.google.com/',
+  scholar:   'https://scholar.google.com/citations?user=neqL4cgAAAAJ&hl=en',
 
   /* ── Hero Stats ────────────────────────────────────────────── */
   stats: [
@@ -43,7 +43,7 @@ const PORTFOLIO = {
       year:        '2024',
       thesis:      'Smart Tolling: YOLO-tiny & Haar Cascade for Bangla License Plate Recognition',
       link:        'https://buet.ac.bd',
-      logo:        'https://logo.clearbit.com/buet.ac.bd',
+      logo:        'assets/images/logos/buet.svg',
       initials:    'BU',
       logoBg:      '#003366',
     },
@@ -53,7 +53,7 @@ const PORTFOLIO = {
       year:        '2020',
       thesis:      'Real-Time DDoS Attack Detection Using Machine Learning',
       link:        'https://www.bracu.ac.bd',
-      logo:        'https://logo.clearbit.com/bracu.ac.bd',
+      logo:        'assets/images/logos/bracu.svg',
       initials:    'BU',
       logoBg:      '#C8202F',
     },
