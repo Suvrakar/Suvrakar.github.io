@@ -44,6 +44,7 @@ const PORTFOLIO = {
       institution: 'IAT, BUET',
       year:        '2024',
       thesis:      'Smart Tolling: YOLO-tiny & Haar Cascade for Bangla License Plate Recognition',
+      photos:      [{ src: 'assets/images/research-thesis-defense.jpg', caption: 'MSc thesis defense at IAT, BUET (Apr 2024)' }],
       link:        'https://buet.ac.bd',
       logo:        'assets/images/logos/buet.svg',
       initials:    'BU',
@@ -54,6 +55,7 @@ const PORTFOLIO = {
       institution: 'BRAC University, Dhaka',
       year:        '2020',
       thesis:      'Real-Time DDoS Attack Detection Using Machine Learning',
+      photos:      [{ src: 'assets/images/bracu-convocation-2023.jpg', caption: 'BRAC University 15th Convocation (2023)' }],
       link:        'https://www.bracu.ac.bd',
       logo:        'assets/images/logos/bracu.svg',
       initials:    'BU',
@@ -481,6 +483,7 @@ const PORTFOLIO = {
     { src: 'assets/images/award-ftech.jpg',           caption: 'FTECH 2022 — Outstanding Determination'  },
     { src: 'assets/images/award-reddigital.jpg',      caption: 'Red.Digital Outstanding Determination'   },
     { src: 'assets/images/datathon-award.jpg',        caption: 'Robi Datathon 2.0 — Runner-up Award'     },
+    { src: 'assets/images/datathon-robi-stage.jpg',      caption: 'Robi Datathon 2.0 — at the event' },
     { src: 'assets/images/datathon-group.jpg',        caption: 'Robi Datathon 2.0 — Team Ceremony'       },
     { src: 'assets/images/research-excellence-cert.jpg', caption: 'Forum 86 Research Excellence 2023'   },
   ],
@@ -542,6 +545,71 @@ const PORTFOLIO = {
       event:       'Dhaka Education Board — Classes 5 & 8',
       description: 'Talent-pool scholarship in both class 5 and class 8; 1st position in Shah Ali Thana.',
     },
+  ],
+
+
+  /* ══════════════════════════════════════════════════════════════
+     BEYOND CODE — travel & reading
+     ══════════════════════════════════════════════════════════════
+     travel.story — your own words (leave '' to show "Story coming soon")
+     travel.places — optional list of places, e.g. ['Sajek', 'Sylhet']
+     books.lang   — 'en' or 'bn' (drives the filter tabs)
+     books.favorite — featured above the shelf; books.takeaway — one-line note shown under the book
+     books.cover  — real cover image (Open Library); books.portrait — author photo behind the title
+  */
+  travel: [
+    { country: 'Bangladesh', code: 'BGD', flag: '🇧🇩', tag: 'Home', places: [], story: '' },
+    { country: 'India',      code: 'IND', flag: '🇮🇳', tag: '',     places: [], story: '' },
+    { country: 'Bhutan',     code: 'BTN', flag: '🇧🇹', tag: '',     places: [], story: '' },
+  ],
+
+  books: [
+    { title: 'The Count of Monte Cristo', author: 'Alexandre Dumas', lang: 'en', favorite: true, cover: 'assets/images/books/count-of-monte-cristo.jpg',
+      blurb: 'Betrayal, patience and a meticulously planned return — my all-time favourite.' },
+    { title: 'The Midnight Library',  author: 'Matt Haig',        lang: 'en', cover: 'assets/images/books/midnight-library.jpg' },
+    { title: 'Atomic Habits',         author: 'James Clear',      lang: 'en', cover: 'assets/images/books/atomic-habits.jpg' },
+    { title: 'It Ends with Us',       author: 'Colleen Hoover',   lang: 'en', cover: 'assets/images/books/it-ends-with-us.jpg' },
+    { title: 'It Starts with Us',     author: 'Colleen Hoover',   lang: 'en', cover: 'assets/images/books/it-starts-with-us.jpg' },
+    { title: 'The Secret',            author: 'Rhonda Byrne',     lang: 'en', cover: 'assets/images/books/the-secret.jpg', takeaway: 'Ask → Believe → Receive' },
+    { title: 'Ikigai',                author: 'Héctor García & Francesc Miralles', lang: 'en', cover: 'assets/images/books/ikigai.jpg' },
+    { title: "Man's Search for Meaning", author: 'Viktor E. Frankl', lang: 'en', cover: 'assets/images/books/mans-search-for-meaning.jpg' },
+    { title: 'Lost Connections',      author: 'Johann Hari',      lang: 'en', cover: 'assets/images/books/lost-connections.jpg', takeaway: 'Be a human, not a robot — intrinsic over extrinsic motivation.' },
+    { title: 'Chanakya Neeti',        author: 'Chanakya',         lang: 'en', cover: 'assets/images/books/chanakya-neeti.jpg' },
+    { title: 'Think and Grow Rich',   author: 'Napoleon Hill',    lang: 'en', cover: 'assets/images/books/think-and-grow-rich.jpg' },
+    { title: 'Eat That Frog!',        author: 'Brian Tracy',      lang: 'en', cover: 'assets/images/books/eat-that-frog.jpg' },
+    { title: 'Who Moved My Cheese?',  author: 'Spencer Johnson',  lang: 'en', cover: 'assets/images/books/who-moved-my-cheese.jpg' },
+    { title: 'Dangerous Personalities', author: 'Joe Navarro',    lang: 'en', cover: 'assets/images/books/dangerous-personalities.jpg' },
+    { title: 'The 80/20 Principle',   author: 'Richard Koch',     lang: 'en', cover: 'assets/images/books/the-80-20-principle.jpg' },
+    { title: 'The 7 Habits of Highly Effective People', author: 'Stephen R. Covey', lang: 'en', cover: 'assets/images/books/7-habits-of-highly-effective-people.jpg' },
+    { title: 'Atal Bihari Vajpayee: A Man for All Seasons', author: 'Kingshuk Nag', lang: 'en', note: 'Biography', cover: 'assets/images/books/vajpayee-a-man-for-all-seasons.jpg' },
+    { title: 'Before the Coffee Gets Cold', author: 'Toshikazu Kawaguchi', lang: 'en', cover: 'assets/images/books/before-the-coffee-gets-cold.jpg' },
+    { title: 'The Alchemist',         author: 'Paulo Coelho',     lang: 'en', cover: 'assets/images/books/the-alchemist.jpg' },
+    { title: 'Adultery',              author: 'Paulo Coelho',     lang: 'en', cover: 'assets/images/books/adultery.jpg' },
+    { title: 'Eleven Minutes',        author: 'Paulo Coelho',     lang: 'en', cover: 'assets/images/books/eleven-minutes.jpg' },
+    { title: 'The Metamorphosis',     author: 'Franz Kafka',      lang: 'en', note: 'Novella', cover: 'assets/images/books/the-metamorphosis.jpg' },
+    { title: 'The Black Cat',         author: 'Edgar Allan Poe',  lang: 'en', note: 'Short story', cover: 'assets/images/books/the-black-cat.jpg' },
+    { title: 'The Tell-Tale Heart',   author: 'Edgar Allan Poe',  lang: 'en', note: 'Short story', cover: 'assets/images/books/the-tell-tale-heart.jpg' },
+    { title: 'The Kite Runner',       author: 'Khaled Hosseini',  lang: 'en', cover: 'assets/images/books/the-kite-runner.jpg' },
+    { title: 'Before Sunset',         author: 'Richard Linklater', lang: 'en', note: 'Film', cover: 'assets/images/books/before-sunset.jpg' },
+    { title: 'Sherlock Holmes',       author: 'Arthur Conan Doyle', lang: 'en', note: 'Series', cover: 'assets/images/books/sherlock-holmes.jpg' },
+    { title: 'Feluda',        bn: 'ফেলুদা',          author: 'Satyajit Ray',                 authorBn: 'সত্যজিৎ রায়',             lang: 'bn', note: 'Series', cover: 'assets/images/books/feluda.jpg' },
+    { title: 'Taranath Tantrik', bn: 'তারানাথ তান্ত্রিক', author: 'Bibhutibhushan Bandyopadhyay', authorBn: 'বিভূতিভূষণ বন্দ্যোপাধ্যায়', lang: 'bn', note: 'Series', cover: 'assets/images/books/taranath-tantrik.jpg' },
+    { title: 'Adarsha Hindu Hotel', bn: 'আদর্শ হিন্দু হোটেল', author: 'Bibhutibhushan Bandyopadhyay', authorBn: 'বিভূতিভূষণ বন্দ্যোপাধ্যায়', lang: 'bn', note: 'Novel', cover: 'assets/images/books/adarsha-hindu-hotel.jpg' },
+    { title: 'Byomkesh',      bn: 'ব্যোমকেশ',        author: 'Sharadindu Bandyopadhyay',     authorBn: 'শরদিন্দু বন্দ্যোপাধ্যায়',    lang: 'bn', note: 'Series', cover: 'assets/images/books/byomkesh.jpg' },
+    { title: 'Himu',          bn: 'হিমু',            author: 'Humayun Ahmed',                authorBn: 'হুমায়ূন আহমেদ',            lang: 'bn', note: 'Series', cover: 'assets/images/books/himu.jpg' },
+    { title: 'Shuvro',        bn: 'শুভ্র',           author: 'Humayun Ahmed',                authorBn: 'হুমায়ূন আহমেদ',            lang: 'bn', note: 'Series', cover: 'assets/images/books/shuvro.jpg' },
+    { title: 'Rabindranath Tagore', bn: 'রবীন্দ্রনাথ ঠাকুর', author: 'Novels, stories & poems', authorBn: 'উপন্যাস, ছোটগল্প ও কবিতা', lang: 'bn', note: 'Works', portrait: 'assets/images/books/rabindranath-tagore.jpg' },
+    { title: 'Noukadubi',     bn: 'নৌকাডুবি',        author: 'Rabindranath Tagore',          authorBn: 'রবীন্দ্রনাথ ঠাকুর',          lang: 'bn', note: 'Novel', cover: 'assets/images/books/noukadubi.jpg' },
+    { title: 'Atithi',        bn: 'অতিথি',           author: 'Rabindranath Tagore',          authorBn: 'রবীন্দ্রনাথ ঠাকুর',          lang: 'bn', note: 'Short story', cover: 'assets/images/books/atithi.jpg' },
+    { title: 'Shasti',        bn: 'শাস্তি',          author: 'Rabindranath Tagore',          authorBn: 'রবীন্দ্রনাথ ঠাকুর',          lang: 'bn', note: 'Short story', cover: 'assets/images/books/shasti.jpg' },
+    { title: 'Malyadan',      bn: 'মাল্যদান',        author: 'Rabindranath Tagore',          authorBn: 'রবীন্দ্রনাথ ঠাকুর',          lang: 'bn', note: 'Short story', cover: 'assets/images/books/malyadan.jpg' },
+    { title: 'Postmaster',    bn: 'পোস্টমাস্টার',     author: 'Rabindranath Tagore',          authorBn: 'রবীন্দ্রনাথ ঠাকুর',          lang: 'bn', note: 'Short story', cover: 'assets/images/books/postmaster.jpg' },
+    { title: 'Kabuliwala',    bn: 'কাবুলিওয়ালা',      author: 'Rabindranath Tagore',          authorBn: 'রবীন্দ্রনাথ ঠাকুর',          lang: 'bn', note: 'Short story', cover: 'assets/images/books/kabuliwala.jpg' },
+    { title: 'Sampatti Samarpan', bn: 'সম্পত্তি সমর্পণ', author: 'Rabindranath Tagore',        authorBn: 'রবীন্দ্রনাথ ঠাকুর',          lang: 'bn', note: 'Short story', cover: 'assets/images/books/sampatti-samarpan.jpg' },
+    { title: 'Sarat Chandra Chattopadhyay', bn: 'শরৎচন্দ্র চট্টোপাধ্যায়', author: 'Novels & stories', authorBn: 'উপন্যাস ও গল্প', lang: 'bn', note: 'Works', portrait: 'assets/images/books/sarat-chandra.jpg' },
+    /* TODO: add authors for these two */
+    { title: 'Bodnam',        bn: 'বদনাম',           author: '',                             authorBn: '',                         lang: 'bn' },
+    { title: 'Mukti',         bn: 'মুক্তি',           author: '',                             authorBn: '',                         lang: 'bn' },
   ],
 
 };

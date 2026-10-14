@@ -7,6 +7,7 @@ const SECTIONS = [
   { id: 'skills',         label: 'Skills'         },
   { id: 'research',       label: 'Research'       },
   { id: 'certifications', label: 'Certifications' },
+  { id: 'beyond',         label: 'Beyond Code'    },
   { id: 'contact',        label: 'Contact'        },
 ];
 
@@ -236,6 +237,14 @@ function renderAbout() {
                   &middot; ${h(e.year)}
                 </p>
                 ${e.thesis ? `<p class="edu-thesis">${h(e.thesis)}</p>` : ''}
+                ${e.photos?.length ? `
+                <div class="edu-photos">
+                  ${e.photos.map(ph => `
+                  <div class="research-photo edu-photo" title="${h(ph.caption)}">
+                    <img src="${h(ph.src)}" alt="${h(ph.caption)}" loading="lazy">
+                  </div>`).join('')}
+                  <p class="edu-photo-cap">${h(e.photos[0].caption)}</p>
+                </div>` : ''}
               </div>
             </div>
           </div>
@@ -607,7 +616,7 @@ function renderContact() {
 
   return `
 <section id="contact" class="section">
-  ${eyebrow(6, 'Contact')}
+  ${eyebrow(7, 'Contact')}
   <div class="contact-grid">
     <div>
       <h2 class="contact-heading">Let&rsquo;s build something remarkable.</h2>
@@ -622,6 +631,82 @@ function renderContact() {
       </a>`).join('')}
     </div>
   </div>
+</section>`;
+}
+
+/* ─── Beyond Code: travel + reading ──────────────────────────── */
+const COVER_TONES = ['#1E293B', '#334155', '#7C2D12', '#14532D', '#1E3A8A', '#581C87', '#713F12', '#0F766E', '#9F1239', '#3F3F46', '#155E75', '#4C1D95'];
+function renderBeyond() {
+  const travel = PORTFOLIO.travel || [];
+  const books  = PORTFOLIO.books  || [];
+  if (!travel.length && !books.length) return '';
+
+  const stamps = travel.map((t, i) => `
+    <article class="trip" style="--i:${i}">
+      <div class="trip-stamp" aria-hidden="true">
+        <span class="trip-flag">${t.flag || ''}</span>
+        <span class="trip-code">${h(t.code || '')}</span>
+      </div>
+      <div class="trip-body">
+        <div class="trip-hd">
+          <h3 class="trip-country">${h(t.country)}</h3>
+          ${t.tag ? `<span class="role-chip role-chip-now">${h(t.tag)}</span>` : ''}
+        </div>
+        ${t.places?.length ? `<p class="trip-places">${t.places.map(h).join(' &middot; ')}</p>` : ''}
+        <p class="trip-story${t.story ? '' : ' trip-story-empty'}">${t.story ? h(t.story) : 'Story coming soon.'}</p>
+      </div>
+    </article>`).join('');
+
+  const fav = books.find(b => b.favorite);
+  const favorite = fav ? `
+  <article class="fav-book">
+    <div class="fav-cover"><img src="${h(fav.cover)}" alt="${h(fav.title)} by ${h(fav.author)} — cover" loading="lazy"></div>
+    <div class="fav-body">
+      <span class="fav-label">&#9733; All-time favourite</span>
+      <h3 class="fav-title">${h(fav.title)}</h3>
+      <p class="fav-author">${h(fav.author)}</p>
+      ${fav.blurb ? `<p class="fav-blurb">${h(fav.blurb)}</p>` : ''}
+    </div>
+  </article>` : '';
+
+  const shelf = books.filter(b => !b.favorite).map((b, i) => `
+    <article class="book${b.cover ? ' book-has-cover' : ''}${b.portrait ? ' book-has-portrait' : ''}" data-lang="${h(b.lang)}" style="--cover:${COVER_TONES[i % COVER_TONES.length]}">
+      <div class="book-cover">
+        ${b.cover
+          ? `<img class="book-img" src="${h(b.cover)}" alt="${h(b.title)} by ${h(b.author)} — cover" loading="lazy">`
+          : `${b.portrait ? `<img class="book-img" src="${h(b.portrait)}" alt="" loading="lazy">` : ''}
+        ${b.note ? `<span class="book-note">${h(b.note)}</span>` : ''}
+        <p class="book-title"${b.bn ? ' lang="bn"' : ''}>${h(b.bn || b.title)}</p>
+        ${b.authorBn || b.author ? `<p class="book-author"${b.authorBn ? ' lang="bn"' : ''}>${h(b.authorBn || b.author)}</p>` : ''}`}
+      </div>
+      ${b.cover
+        ? `<p class="book-caption"><strong>${h(b.title)}</strong> &middot; ${h(b.author)}</p>`
+        : b.bn ? `<p class="book-caption">${[b.title, b.author].filter(Boolean).map(h).join(' &middot; ')}</p>` : ''}
+      ${b.takeaway ? `<p class="book-takeaway">&ldquo;${h(b.takeaway)}&rdquo;</p>` : ''}
+    </article>`).join('');
+
+  const hasBn = books.some(b => b.lang === 'bn'), hasEn = books.some(b => b.lang === 'en');
+  return `
+<section id="beyond" class="section">
+  ${eyebrow(6, 'Beyond Code')}
+  <h2 class="section-title">Travel &amp; Reading</h2>
+
+  ${travel.length ? `
+  <p class="awards-eyebrow">Places I&rsquo;ve Been</p>
+  <div class="trips">${stamps}</div>` : ''}
+
+  ${books.length ? `
+  <div class="shelf-hd">
+    <p class="awards-eyebrow shelf-eyebrow">On My Bookshelf</p>
+    ${hasBn && hasEn ? `
+    <div class="skills-filters shelf-filters" role="group" aria-label="Filter books by language">
+      <button class="skill-filter-btn active" data-lang="all">All</button>
+      <button class="skill-filter-btn" data-lang="en">English</button>
+      <button class="skill-filter-btn" data-lang="bn" lang="bn">বাংলা</button>
+    </div>` : ''}
+  </div>
+  ${favorite}
+  <div class="shelf">${shelf}</div>` : ''}
 </section>`;
 }
 
@@ -645,6 +730,7 @@ function render() {
       renderSkills() +
       renderResearch() +
       renderCertifications() +
+      renderBeyond() +
       renderContact() +
       renderFooter() +
     `</main>`;
@@ -837,6 +923,21 @@ function setupSkillFilters() {
   });
 }
 
+/* ─── Bookshelf language filter ─────────────────────────────── */
+function setupShelfFilters() {
+  const el = document.querySelector('.shelf-filters');
+  if (!el) return;
+  el.addEventListener('click', e => {
+    const btn = e.target.closest('.skill-filter-btn');
+    if (!btn) return;
+    el.querySelectorAll('.skill-filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+    const lang = btn.dataset.lang;
+    document.querySelectorAll('.book').forEach(card => {
+      card.style.display = (lang === 'all' || card.dataset.lang === lang) ? '' : 'none';
+    });
+  });
+}
+
 /* ─── Boot ───────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   render();
@@ -844,5 +945,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setupMobileMenu();
   setupLightbox();
   setupSkillFilters();
+  setupShelfFilters();
   setupTimeline();
 });

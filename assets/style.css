@@ -950,6 +950,10 @@ img { display: block; max-width: 100%; }
 .edu-degree { font-size: 13.5px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
 .edu-meta   { font-family: var(--mono); font-size: 10px; color: var(--blue); letter-spacing: 0.04em; margin-bottom: 5px; }
 .edu-thesis { font-size: 12px; color: var(--ink-4); line-height: 1.55; font-style: italic; }
+.edu-photos { margin-top: 10px; display: flex; flex-wrap: nowrap; align-items: center; gap: 10px; }
+.research-photo.edu-photo { width: 84px; aspect-ratio: 3/4; border-radius: 8px; flex-shrink: 0; }
+.edu-photo img { object-position: center 20%; }
+.edu-photo-cap { font-family: var(--mono); font-size: 9.5px; color: var(--ink-4); max-width: 160px; line-height: 1.5; }
 
 /* ── Projects ────────────────────────────────────────────────── */
 .projects-grid {
@@ -1220,6 +1224,143 @@ img { display: block; max-width: 100%; }
 .cert-skills { display: flex; flex-wrap: wrap; gap: 6px; }
 .cert-badge  { width: 96px; height: 96px; object-fit: cover; margin-bottom: 4px; }
 .cert-id     { font-family: var(--mono); font-size: 9.5px; color: var(--ink-4); word-break: break-all; }
+
+/* ── Beyond Code: travel ─────────────────────────────────────── */
+[lang="bn"] { font-family: 'Hind Siliguri', var(--sans); }
+.trips {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-bottom: 64px;
+}
+.trip {
+  display: flex; gap: 18px; align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.trip:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+/* Passport-stamp mark */
+.trip-stamp {
+  flex-shrink: 0;
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 2px dashed var(--border-mid);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  transform: rotate(calc(-8deg + var(--i) * 7deg));
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s;
+}
+.trip:hover .trip-stamp { transform: rotate(0deg) scale(1.05); border-color: var(--ink-4); }
+.trip-flag { font-size: 26px; line-height: 1; }
+.trip-code { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em; color: var(--ink-4); }
+.trip-hd { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.trip-country { font-family: var(--serif); font-size: 24px; font-weight: 500; color: var(--ink); line-height: 1.1; }
+.trip-places { font-family: var(--mono); font-size: 10px; color: var(--blue); letter-spacing: 0.04em; margin-bottom: 6px; }
+.trip-story { font-size: 13.5px; color: var(--ink-3); line-height: 1.65; }
+.trip-story-empty { color: var(--ink-5); font-style: italic; }
+
+/* ── Beyond Code: bookshelf ──────────────────────────────────── */
+.shelf-hd { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.shelf-eyebrow { flex: 1; min-width: 220px; margin-bottom: 0; }
+.shelf-filters { margin-bottom: 0; }
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 26px 20px;
+}
+.book { display: flex; flex-direction: column; gap: 10px; }
+.book-cover {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border-radius: 4px 10px 10px 4px;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,0.28) 0, rgba(0,0,0,0.08) 6px, rgba(255,255,255,0.08) 8px, transparent 14px),
+    linear-gradient(160deg, color-mix(in srgb, var(--cover) 82%, #fff) 0%, var(--cover) 55%, color-mix(in srgb, var(--cover) 80%, #000) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12), 0 10px 22px -10px rgba(15,23,42,0.45);
+  padding: 18px 14px 16px 22px;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
+  color: #fff;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.3s ease;
+}
+.book-cover::after {
+  content: ''; position: absolute; left: 22px; right: 14px; top: 18px; height: 1px; background: rgba(255,255,255,0.35);
+}
+.book:hover .book-cover {
+  transform: translateY(-6px) rotate(-1.5deg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 20px 30px -12px rgba(15,23,42,0.5);
+}
+.book-note {
+  position: absolute; top: 26px; left: 22px;
+  font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.75;
+}
+.book-title  { font-family: var(--serif); font-size: 20px; font-weight: 500; line-height: 1.15; }
+.book-title[lang="bn"]  { font-family: 'Hind Siliguri', var(--serif); font-size: 18px; font-weight: 600; }
+.book-author { font-size: 11px; opacity: 0.8; line-height: 1.35; }
+.book-caption { font-size: 12px; color: var(--ink-4); line-height: 1.4; }
+.book-takeaway { font-size: 11.5px; font-style: italic; color: var(--ink-3); line-height: 1.45; margin-top: -4px; }
+
+/* Featured favourite */
+.fav-book {
+  display: flex; gap: 28px; align-items: center;
+  background: linear-gradient(120deg, var(--bg-card) 55%, #FBF6EC);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-xs);
+}
+.fav-cover {
+  flex-shrink: 0; width: 120px; aspect-ratio: 2 / 3; border-radius: 3px 8px 8px 3px; overflow: hidden; position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15), 0 18px 30px -12px rgba(15,23,42,0.55);
+  transform: rotate(-3deg);
+  transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.fav-book:hover .fav-cover { transform: rotate(0deg) translateY(-4px); }
+.fav-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.3) 0, rgba(255,255,255,0.12) 7px, transparent 12px); }
+.fav-cover img { width: 100%; height: 100%; object-fit: cover; }
+.fav-label { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #B45309; background: #FEF3C7; padding: 3px 10px; border-radius: 999px; margin-bottom: 12px; }
+.fav-title  { font-family: var(--serif); font-size: 32px; font-weight: 500; color: var(--ink); line-height: 1.1; }
+.fav-author { font-size: 13px; color: var(--ink-4); margin: 6px 0 10px; }
+.fav-blurb  { font-size: 14px; color: var(--ink-3); line-height: 1.65; max-width: 520px; }
+@media (max-width: 640px) {
+  .fav-book { gap: 18px; padding: 18px; }
+  .fav-cover { width: 88px; }
+  .fav-title { font-size: 24px; }
+}
+.book-caption strong { color: var(--ink-2); font-weight: 600; }
+.book-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Real cover: image is the whole cover, keep the spine shading on top */
+.book-has-cover .book-cover { padding: 0; background: var(--bg-alt); }
+.book-has-cover .book-cover::after { display: none; }
+.book-has-cover .book-cover::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(0,0,0,0.3) 0, rgba(0,0,0,0.06) 5px, rgba(255,255,255,0.12) 7px, transparent 12px);
+}
+/* Author portrait: duotone photo behind the title */
+.book-has-portrait .book-img { filter: grayscale(1) contrast(1.05); opacity: 0.55; }
+.book-has-portrait .book-cover::before {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--cover) 30%, transparent) 0%, color-mix(in srgb, var(--cover) 92%, #000) 72%);
+}
+.book-has-portrait .book-img { z-index: 0; }
+.book-has-portrait .book-note, .book-has-portrait .book-title, .book-has-portrait .book-author { position: relative; z-index: 2; }
+.book-has-portrait .book-note { position: absolute; }
+.book-has-portrait .book-cover::after { z-index: 2; }
+
+@media (max-width: 640px) {
+  .shelf { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 20px 14px; }
+  .book-cover { padding: 14px 10px 12px 18px; }
+  .book-title { font-size: 16px; }
+  .book-title[lang="bn"] { font-size: 15px; }
+  .book-note { top: 20px; left: 18px; }
+  .book-cover::after { left: 18px; right: 10px; top: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trip, .trip-stamp, .book-cover { transition: none; }
+}
 
 /* ── Awards ──────────────────────────────────────────────────── */
 .awards-eyebrow {
