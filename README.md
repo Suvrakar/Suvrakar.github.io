@@ -26,6 +26,7 @@ Alongside engineering, I have an active research background in **computer vision
 | ✍️ Medium | [suvra1.medium.com](https://suvra1.medium.com/) | Technical writing |
 | 🎓 Google Scholar | [citations?user=neqL4cgAAAAJ](https://scholar.google.com/citations?user=neqL4cgAAAAJ&hl=en) | Research publications |
 | 💻 LeetCode | [leetcode.com/Suvrakar](https://leetcode.com/Suvrakar/) | Competitive programming |
+| 🏅 Claude Architect Credly | [Claude Certified Architect Badge](https://www.credly.com/badges/fe37af70-5a8d-416a-b602-40d6bf590c6c/public_url) | Verified certification |
 | 🏅 AWS Credly | [SAA-C03 Badge](https://www.credly.com/badges/c9c992ba-5222-484b-ae01-1906c1baad64/public_url) | Verified certification |
 | 📧 Email | [kar.suvra6682@gmail.com](mailto:kar.suvra6682@gmail.com) | Direct contact |
 | 📘 Facebook | [facebook.com/karsuvra](https://www.facebook.com/karsuvra/) | Personal |
@@ -35,26 +36,34 @@ Alongside engineering, I have an active research background in **computer vision
 
 ## Experience
 
-### Brainstation 23 PLC — Senior Software Engineer I
-`Apr 2021 – Present · Dhaka, Bangladesh`
+### Brain Station 23 PLC
+`May 2024 – Present · Full-time · Dhaka, Bangladesh`
 
-- Led backend for **MyBL & OneID** — 30% API performance improvement, 10M+ daily requests, 99.9% uptime
-- Spring Boot & Node.js microservices with Redis caching, Grafana/CloudWatch monitoring
-- Architected event-driven systems with Redis queues; mentored junior developers
-- **Awards**: Employee of the Month (Feb 2023), Outstanding Determination (2022)
+| Role | Period |
+|---|---|
+| Senior Software Engineer – I *(promoted)* | Jul 2025 – Present |
+| Software Engineer – II | May 2024 – Jul 2025 |
 
-### Red.Digital Limited (A Robi Axiata Company) — Software Developer
-`Q3 2022 · Dhaka, Bangladesh`
+- Led backend for **MyBL (Banglalink) & OneID** — 30% API performance improvement, 10M+ daily requests, 99.9% uptime
+- Own project delivery, architecture discussions, CI/CD and presales PoCs; mentor junior developers
 
-- Awarded Outstanding Determination for contributions to digital transformation projects
-- Worked on enterprise solutions for Robi Axiata's subsidiary digital ventures
+### RedDot Digital Limited (A Robi Axiata subsidiary) — Software Engineer
+`Apr 2022 – May 2024 · Full-time · Dhaka, Bangladesh`
 
-### Hivecore Limited — Software Engineer II
-`Apr 2022 – May 2024 · Dhaka, Bangladesh`
+- Full-stack: GraphQL (Graphene-Django) APIs + React/TypeScript with Apollo; Docker
+- Built Rstore (Robi Axiata) and Shopoth (Agami – BAT); GraphQL APIs serving 1M+ users
+- Employee of the Month (Feb 2023); Outstanding Determination (Sep 2022) for Rstore delivery; appreciation letter
 
+### Hivecore Limited
+`Apr 2021 – Apr 2022 · Full-time · Banani, Dhaka`
+
+| Role | Period |
+|---|---|
+| Software Engineer *(promoted)* | Oct 2021 – Apr 2022 |
+| Trainee Software Engineer | Apr 2021 – Sep 2021 |
+
+- HRM, ERP and OAuth 2.0 modules for 1,000+ users — React, Node.js/Express, Spring Boot, MongoDB, MySQL
 - Docker + CI/CD automation — 50% reduction in release cycle time
-- GraphQL & REST APIs serving 1M+ users on AWS at 99.9% uptime
-- ERP/HRM modules for 1,000+ users in Spring Boot + React (TypeScript)
 
 ---
 
@@ -95,6 +104,16 @@ Technical articles published at [suvra1.medium.com](https://suvra1.medium.com/):
 
 ## Research
 
+### Publications
+
+| Date | Title | Venue |
+|---|---|---|
+| Jan 24, 2025 | [An Efficient Real Time DDoS Detection Model Using Machine Learning Algorithms](https://arxiv.org/abs/2501.14311) | arXiv — Cornell University |
+| Nov 27, 2024 | [A Cloud-Based Hybrid Model for Real-Time Detection of BRTA-Approved Licence Plates Using YOLO Tiny and Haar Cascade](https://ieeexplore.ieee.org/document/11022598) | IEEE — ICCIT 2024 |
+| Apr 13, 2021 | [IoT Based Automated Irrigation and Smart Agriculture Monitoring System](https://www.irjmets.com/uploadedfiles/paper/volume3/issue_4_april_2021/8211/1628083337.pdf) ([demo video](https://www.youtube.com/watch?v=QzWe3d_7iA0)) | IRJMETS, Vol. 3, Issue 4 |
+
+### Theses
+
 ### Smart Tolling: YOLO-tiny & Haar Cascade for Bangla License Plate Recognition
 `MSc Thesis · IAT, BUET · 2024`
 
@@ -117,6 +136,7 @@ Machine learning approach for real-time detection of Distributed Denial of Servi
 
 | Certification | Score | Issuer |
 |---|---|---|
+| [Claude Certified Architect – Foundations](https://www.credly.com/badges/fe37af70-5a8d-416a-b602-40d6bf590c6c/public_url) (Oct 2026 – Oct 2027) | — | Anthropic |
 | AWS Certified Solutions Architect – Associate (SAA-C03) | 911 / 1000 | Amazon Web Services |
 
 ---
@@ -125,11 +145,15 @@ Machine learning approach for real-time detection of Distributed Denial of Servi
 
 | Award | Event |
 |---|---|
-| 🏆 2nd Runner-up | BEAR Summit 2025 — National Semiconductor Symposium |
-| 🔬 Research Excellence Collaborator | Forum 86, BUET — May 2023 |
-| 🥉 2nd Runner-up + Top Data Engineer | Robi Datathon 2.0 |
-| ⭐ Employee of the Month | Brainstation 23 PLC — Feb 2023 |
-| 🏅 Outstanding Determination | Red.Digital Limited — Q3 2022 |
+| 🏆 2nd Runner-up — Innovation Panel, Electronics (Digital Display) | BEAR Summit 2025 — National Semiconductor Symposium · Aug 2025 |
+| 🔬 Research Excellence Award — Research Contributor | BUET 86 Forum · May 2023 |
+| ⭐ Employee of the Month | RedDot Digital Limited · Feb 2023 |
+| 🏅 Outstanding Determination | RedDot Digital Limited · Sep 2022 |
+| 🥉 2nd Runner-up + Top Data Engineer | [Robi Datathon 2.0](https://www.bracu.ac.bd/news/brac-university-student-team-clinch-third-place-robi%E2%80%99s-datathon-20) · Aug 2022 |
+| 💡 Top 8 Finalist | Bracathon 3.0 · Jul 2019 |
+| 📣 2nd Round Qualifier | ADWIZ 2017 · Sep 2017 |
+| 🌍 2nd Round Qualifier | Hult Prize Regional 2016 |
+| 🎓 Government Board Scholarship (Talent Pool) | Dhaka Education Board — Classes 5 & 8 |
 
 ---
 

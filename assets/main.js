@@ -61,6 +61,10 @@ const SKILL_META = {
   'LangChain':       { icon: 'img', src: 'https://cdn.simpleicons.org/langchain/1C3A5E',           accent: '#1C3A5E' },
   'OpenAI API':      { icon: 'img', src: 'https://cdn.simpleicons.org/openai/10A37F',              accent: '#10A37F' },
   'Gemini API':      { icon: 'img', src: 'https://cdn.simpleicons.org/googlegemini/4285F4',        accent: '#4285F4' },
+  'Claude API':      { icon: 'img', src: 'https://cdn.simpleicons.org/claude/D97757',              accent: '#D97757' },
+  'Claude Agent SDK':{ icon: 'img', src: 'https://cdn.simpleicons.org/anthropic/191919',           accent: '#D97757' },
+  'Claude Code':     { icon: 'img', src: 'https://cdn.simpleicons.org/claude/D97757',              accent: '#D97757' },
+  'MCP':             { icon: 'img', src: 'https://cdn.simpleicons.org/modelcontextprotocol/111111', accent: '#111111' },
   /* Styled text initials for abstract / framework-agnostic concepts */
   'REST':            { icon: 'txt', text: 'REST',    accent: '#4B5563' },
   'gRPC':            { icon: 'txt', text: 'gRPC',    accent: '#244C5A' },
@@ -72,6 +76,10 @@ const SKILL_META = {
   'Distributed Systems': { icon: 'txt', text: 'DS',  accent: '#1E293B' },
   'Event-Driven':    { icon: 'txt', text: 'ED',      accent: '#374151' },
   'Cloud-Native':    { icon: 'txt', text: 'CN',      accent: '#0EA5E9' },
+  'Multi-Agent Orchestration': { icon: 'txt', text: 'MA', accent: '#B45309' },
+  'Prompt Engineering': { icon: 'txt', text: 'PE',   accent: '#C2410C' },
+  'Context Management': { icon: 'txt', text: 'CM',   accent: '#9A3412' },
+  'Structured Output':  { icon: 'txt', text: '{ }',  accent: '#78350F' },
 };
 
 /* ── Helpers ─────────────────────────────────────────────────── */
@@ -239,10 +247,9 @@ function renderAbout() {
 }
 
 /* ─── Experience ─────────────────────────────────────────────── */
-function renderExperience() {
-  const entries = PORTFOLIO.experience.map((e, i) => {
-    const isActive = /present/i.test(e.period);
-    return `
+function timelineEntry(e, i) {
+  const isActive = /present/i.test(e.period);
+  return `
     <div class="tl-entry${isActive ? ' tl-active' : ''}" style="--tl-delay:${(i * 0.1).toFixed(2)}s">
       <div class="tl-pip"></div>
       <div class="tl-body">
@@ -261,20 +268,176 @@ function renderExperience() {
           </div>
           <span class="exp-period-badge">${h(e.period)}</span>
         </div>
+        ${e.progression?.length ? `
+        <ol class="promo-ladder" aria-label="Promotion path" style="--steps:${e.progression.length}">
+          ${e.progression.map((r, j, all) => `
+          <li class="promo-step${j === all.length - 1 ? ' promo-top' : ''}" style="--i:${j}">
+            <span class="promo-node">${j === all.length - 1 ? '&#9733;' : j + 1}</span>
+            <span class="promo-role">${h(r.role)}</span>
+            <span class="promo-period">${h(r.period)}</span>
+          </li>`).join('')}
+        </ol>` : ''}
         <ul class="exp-bullets">
           ${e.highlights.map(hl => `<li><span class="exp-bullet-dot"></span>${h(hl)}</li>`).join('')}
         </ul>
+        ${e.links?.length ? `
+        <div class="exp-links">
+          ${e.links.map(l => `<a href="${h(l.url)}" class="research-link" target="_blank" rel="noopener noreferrer">${h(l.label)} ${EXT}</a>`).join('')}
+        </div>` : ''}
+        ${e.photos?.length ? `
+        <div class="research-photos exp-photos${e.photos.length > 1 ? ' exp-photos-multi' : ''}">
+          ${e.photos.map(p => `
+          <div class="research-photo" title="${h(p.caption)}">
+            <img src="${h(p.src)}" alt="${h(p.caption)}" loading="lazy">
+          </div>`).join('')}
+        </div>` : ''}
       </div>
     </div>`;
+}
+
+/* ── Date helpers for 'YYYY-MM' strings (null = present) ─────── */
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function monthIdx(ym) {
+  if (!ym) { const d = new Date(); return d.getFullYear() * 12 + d.getMonth(); }
+  const [y, m] = ym.split('-').map(Number);
+  return y * 12 + (m - 1);
+}
+function fmtMonth(ym) {
+  if (!ym) return 'Present';
+  const i = monthIdx(ym);
+  return `${MONTHS[i % 12]} ${Math.floor(i / 12)}`;
+}
+/* Inclusive month count, matching LinkedIn ("May 2024 – Jul 2025" = 1 yr 3 mos) */
+function tenure(start, end) {
+  const n = monthIdx(end) - monthIdx(start) + 1;
+  const y = Math.floor(n / 12), m = n % 12;
+  return [y && `${y} yr${y > 1 ? 's' : ''}`, m && `${m} mo${m > 1 ? 's' : ''}`].filter(Boolean).join(' ');
+}
+
+/* ── Career-at-a-glance: proportional bar with promotion markers ── */
+function renderCareerStrip() {
+  const jobs = PORTFOLIO.experience;
+  const min = Math.min(...jobs.map(j => monthIdx(j.start)));
+  const max = monthIdx(null) + 1;
+  const pct = i => ((i - min) / (max - min) * 100).toFixed(2);
+
+  const segs = [...jobs].reverse().map((j, k) => {
+    const left = pct(monthIdx(j.start));
+    const width = (pct(monthIdx(j.end) + 1) - left).toFixed(2);
+    return `<div class="cs-seg cs-seg-${k}${j.end ? '' : ' cs-current'}" style="left:${left}%;width:${width}%;--k:${k}"
+                 title="${h(j.company)} · ${fmtMonth(j.start)} – ${fmtMonth(j.end)}">
+      ${j.logo ? `<span class="cs-seg-logo"><img src="${h(j.logo)}" alt="" loading="lazy"></span>` : ''}
+      <span class="cs-seg-label">${h(j.company.replace(/ (PLC|Limited)$/, ''))}</span>
+    </div>`;
   }).join('');
+
+  const promos = jobs.flatMap(j => j.roles.slice(0, -1).map(r => ({ r, j })))
+    .map(({ r }) => ({ r, at: +pct(monthIdx(r.start)) }))
+    .map(({ r, at }) => `<div class="cs-promo${at > 82 ? ' cs-promo-end' : at < 12 ? ' cs-promo-start' : ''}" style="left:${at}%" title="Promoted to ${h(r.title)} · ${fmtMonth(r.start)}">
+        <span class="cs-promo-dot"></span>
+        <span class="cs-promo-tip">&uarr; ${h(r.title)}<em>${fmtMonth(r.start)}</em></span>
+      </div>`).join('');
+
+  const firstYear = Math.ceil(min / 12);
+  const ticks = [];
+  for (let y = firstYear; y * 12 < max; y++) {
+    ticks.push(`<span class="cs-tick" style="left:${pct(y * 12)}%">${y}</span>`);
+  }
+
+  const totalPromos = jobs.reduce((n, j) => n + j.roles.length - 1, 0);
+  return `
+  <div class="career-strip" aria-label="Career timeline">
+    <div class="cs-head">
+      <span class="cs-title">Career at a glance</span>
+      <span class="cs-summary">${tenure(fmtStart(min), null)} &middot; ${jobs.length} companies &middot; ${totalPromos} promotions</span>
+    </div>
+    <div class="cs-track">
+      ${segs}
+      ${promos}
+    </div>
+    <div class="cs-axis">${ticks.join('')}<span class="cs-tick cs-now" style="left:100%">Now</span></div>
+  </div>`;
+}
+function fmtStart(i) { return `${Math.floor(i / 12)}-${String(i % 12 + 1).padStart(2, '0')}`; }
+
+/* ── One company with its role track ─────────────────────────── */
+function jobEntry(e, i) {
+  const isActive = !e.end;
+  const roles = e.roles.map((r, j) => {
+    const promoted = j < e.roles.length - 1;
+    const current  = !r.end;
+    return `
+      <li class="role${current ? ' role-current' : ''}" style="--r:${j}">
+        <span class="role-dot" aria-hidden="true"></span>
+        <div class="role-hd">
+          <h4 class="role-title">${h(r.title)}</h4>
+          ${current ? '<span class="role-chip role-chip-now">Current</span>' : ''}
+          ${promoted ? '<span class="role-chip role-chip-promo">&uarr; Promoted</span>' : ''}
+        </div>
+        <p class="role-period">${fmtMonth(r.start)} – ${fmtMonth(r.end)} <span>&middot; ${tenure(r.start, r.end)}</span></p>
+        ${r.highlights?.length ? `
+        <ul class="exp-bullets role-bullets">
+          ${r.highlights.map(hl => `<li><span class="exp-bullet-dot"></span>${h(hl)}</li>`).join('')}
+        </ul>` : ''}
+      </li>`;
+  }).join('');
+
+  return `
+    <div class="tl-entry${isActive ? ' tl-active' : ''}" style="--tl-delay:${(i * 0.1).toFixed(2)}s">
+      <div class="tl-pip"></div>
+      <div class="tl-body">
+        <div class="exp-hd">
+          <div class="exp-hd-main">
+            ${orgLogo({ logo: e.logo, initials: e.initials, logoBg: e.logoBg, link: e.link, alt: e.company })}
+            <div class="exp-hd-text">
+              ${e.link
+                ? `<a href="${h(e.link)}" class="exp-co-link" target="_blank" rel="noopener noreferrer">
+                     <h3 class="exp-company">${h(e.company)}</h3>${EXT}
+                   </a>`
+                : `<h3 class="exp-company">${h(e.company)}</h3>`}
+              <p class="exp-meta">${[e.employment, tenure(e.start, e.end)].filter(Boolean).map(h).join(' &middot; ')}</p>
+              <p class="exp-loc">${h(e.location)}</p>
+            </div>
+          </div>
+          <span class="exp-period-badge">${fmtMonth(e.start)} – ${fmtMonth(e.end)}</span>
+        </div>
+        <ol class="role-track${e.roles.length > 1 ? ' role-track-multi' : ''}">
+          ${roles}
+        </ol>
+        ${e.highlights?.length ? `
+        <div class="exp-impact">
+          <p class="exp-impact-label">Impact</p>
+          <ul class="exp-bullets">
+            ${e.highlights.map(hl => `<li><span class="exp-bullet-dot"></span>${h(hl)}</li>`).join('')}
+          </ul>
+        </div>` : ''}
+      </div>
+    </div>`;
+}
+
+function renderExperience() {
+  const entries = PORTFOLIO.experience.map(jobEntry).join('');
+  const activities = (PORTFOLIO.activities || []).map(timelineEntry).join('');
+  const volunteer  = (PORTFOLIO.volunteer  || []).map(timelineEntry).join('');
 
   return `
 <section id="experience" class="section">
   ${eyebrow(1, 'Experience')}
   <h2 class="section-title">Work History</h2>
+  ${renderCareerStrip()}
   <div class="tl-wrap">
     ${entries}
   </div>
+  ${activities ? `
+  <p class="awards-eyebrow exp-activities-eyebrow">Leadership &amp; Extracurricular</p>
+  <div class="tl-wrap">
+    ${activities}
+  </div>` : ''}
+  ${volunteer ? `
+  <p class="awards-eyebrow exp-activities-eyebrow">Volunteering</p>
+  <div class="tl-wrap">
+    ${volunteer}
+  </div>` : ''}
 </section>`;
 }
 
@@ -289,10 +452,16 @@ function renderProjects() {
     <div class="project-card">
       <p class="project-number">${String(i+1).padStart(2,'0')}</p>
       <h3 class="project-name">${h(p.name)}</h3>
+      ${p.org || p.period ? `<p class="project-meta">${[p.org, p.period].filter(Boolean).map(h).join(' &middot; ')}</p>` : ''}
       <div class="project-tech">
         ${p.tech.map(t => `<span class="tech-tag">${h(t)}</span>`).join('')}
       </div>
       <p class="project-desc">${h(p.description)}</p>
+      ${p.highlights?.length ? `
+      <details class="project-more">
+        <summary>Key contributions</summary>
+        <ul>${p.highlights.map(x => `<li>${h(x)}</li>`).join('')}</ul>
+      </details>` : ''}
       ${p.link ? `<a href="${h(p.link)}" class="project-link" target="_blank" rel="noopener noreferrer">Visit Project &rarr;</a>` : ''}
     </div>`).join('')}
   </div>
@@ -345,7 +514,7 @@ function renderResearch() {
   ${eyebrow(4, 'Research')}
   <h2 class="section-title">Publications &amp; Theses</h2>
   <div class="research-list">
-    ${PORTFOLIO.research.map(r => `
+    ${[...PORTFOLIO.research].sort((a, b) => String(b.date || b.year).localeCompare(String(a.date || a.year))).map(r => `
     <div class="research-item">
       <div class="research-meta">
         <span class="research-badge">${h(r.type)}</span>
@@ -364,7 +533,11 @@ function renderResearch() {
           <img src="${h(src)}" alt="Research" loading="lazy">
         </div>`).join('')}
       </div>` : ''}
-      ${r.link ? `<a href="${h(r.link)}" class="research-link" target="_blank" rel="noopener noreferrer">View Paper &rarr;</a>` : ''}
+      ${r.link || r.links?.length ? `
+      <div class="exp-links">
+        ${r.link ? `<a href="${h(r.link)}" class="research-link" target="_blank" rel="noopener noreferrer">View Paper &rarr;</a>` : ''}
+        ${(r.links || []).map(l => `<a href="${h(l.url)}" class="research-link" target="_blank" rel="noopener noreferrer">${h(l.label)} ${EXT}</a>`).join('')}
+      </div>` : ''}
     </div>`).join('')}
   </div>
 </section>`;
@@ -380,12 +553,17 @@ function renderCertifications() {
   <div class="cert-grid">
     ${PORTFOLIO.certifications.map(c => `
     <div class="cert-card">
+      ${c.badge ? `<img class="cert-badge" src="${h(c.badge)}" alt="${h(c.name)} badge" loading="lazy">` : ''}
       ${c.issuer ? `<p class="cert-issuer">${h(c.issuer)}</p>` : ''}
       <h3 class="cert-name">${h(c.name)}</h3>
       <div class="cert-meta">
         ${c.code  ? `<span class="cert-code">${h(c.code)}</span>` : ''}
         ${c.score ? `<span class="cert-score">${h(c.score)}</span>` : ''}
+        ${c.issued ? `<span class="cert-code">Issued ${h(c.issued)}${c.expires ? ` · Expires ${h(c.expires)}` : ''}</span>` : ''}
       </div>
+      ${c.description ? `<p class="cert-desc">${h(c.description)}</p>` : ''}
+      ${c.skills?.length ? `<div class="cert-skills">${c.skills.map(t => `<span class="research-tag">${h(t)}</span>`).join('')}</div>` : ''}
+      ${c.credentialId ? `<p class="cert-id">Credential ID ${h(c.credentialId)}</p>` : ''}
       ${c.link ? `<a href="${h(c.link)}" class="cert-link" target="_blank" rel="noopener noreferrer">Verify Certificate &rarr;</a>` : ''}
     </div>`).join('')}
   </div>
@@ -408,6 +586,7 @@ function renderCertifications() {
         <p class="award-title">${h(a.title)}</p>
         <p class="award-event">${h(a.event)}</p>
         <p class="award-desc">${h(a.description)}</p>
+        ${a.link ? `<a href="${h(a.link)}" class="research-link award-link" target="_blank" rel="noopener noreferrer">Details ${EXT}</a>` : ''}
       </div>
     </div>`).join('')}
   </div>
@@ -625,7 +804,7 @@ function setupLightbox() {
 
 /* ─── Timeline scroll-reveal ─────────────────────────────────── */
 function setupTimeline() {
-  const entries = document.querySelectorAll('.tl-entry');
+  const entries = document.querySelectorAll('.tl-entry, .career-strip');
   if (!entries.length) return;
 
   const io = new IntersectionObserver(entries => {
@@ -636,7 +815,7 @@ function setupTimeline() {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.tl-entry').forEach(el => io.observe(el));
+  entries.forEach(el => io.observe(el));
 }
 
 /* ─── Skills filter ──────────────────────────────────────────── */
