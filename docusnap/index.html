@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="DocuSnap Verified Seal: a tamper-proof QR code on documents. Scan it with any phone camera to check who issued it and whether it was changed.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111317" media="(prefers-color-scheme: dark)">
+<title>DocuSnap Verified Seal</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23188038' d='M12 1 3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4Zm-2 16-4-4 1.4-1.4L10 14.2l6.6-6.6L18 9l-8 8Z'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1 3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4Zm-2 16-4-4 1.4-1.4L10 14.2l6.6-6.6L18 9l-8 8Z"/></svg>
+    DocuSnap
+  </a>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="bn" aria-pressed="false" lang="bn">বাং</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <svg class="seal" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1 3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4Zm-2 16-4-4 1.4-1.4L10 14.2l6.6-6.6L18 9l-8 8Z"/></svg>
+    <h1 data-t="heroTitle">DocuSnap Verified Seal</h1>
+    <p data-t="heroText">A tamper-proof QR code printed on certificates, letters and invoices. Scan it with any phone camera to see who issued the document and whether it has been changed.</p>
+  </section>
+
+  <section class="card">
+    <h2 data-t="howTitle">How it works</h2>
+    <ol class="steps">
+      <li><span class="n">1</span><div><h3 data-t="step1T">The issuer seals it</h3><p data-t="step1P">The DocuSnap app signs the key details of the document with the issuer's private key and prints them as a QR code.</p></div></li>
+      <li><span class="n">2</span><div><h3 data-t="step2T">You scan it</h3><p data-t="step2P">Point your phone camera at the seal. This page checks the digital signature right on your device.</p></div></li>
+      <li><span class="n">3</span><div><h3 data-t="step3T">You compare</h3><p data-t="step3P">If the seal is valid, check the details and the Issuer ID match the paper and the issuer's published ID.</p></div></li>
+    </ol>
+  </section>
+
+  <a class="btn" href="https://play.google.com/store/apps/details?id=com.docusnap.docusnap" rel="noopener" data-t="getApp">Get DocuSnap</a>
+  <a class="btn secondary" href="v/" data-t="verifyLink">Paste QR text to verify</a>
+  <p class="footnote" data-t="strongest">For the strongest check, scan with the DocuSnap app</p>
+  <p class="footnote" data-t="landingPrivacy">No accounts, no tracking. Seal data never leaves your browser.</p>
+</main>
+
+<script type="module" src="assets/landing.js"></script>
+</body>
+</html>
