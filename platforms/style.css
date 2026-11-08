@@ -110,3 +110,13 @@ details.full img{margin-top:12px;border-radius:var(--radius);box-shadow:var(--sh
   .top .wrap{height:auto;padding-top:12px;padding-bottom:12px;flex-direction:column;align-items:flex-start;gap:8px}
   .nav{margin-left:-10px}
 }
+
+/* screenshot strip */
+.p-android{--accent:#1e8e3e;--accent-soft:#e6f4ea;}
+@media (prefers-color-scheme:dark){.p-android{--accent:#81c995;--accent-soft:#15291c;}}
+.shots{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 4px 16px;margin:0 -4px}
+.shots figure{flex:0 0 200px;scroll-snap-align:start}
+.shots img{border-radius:12px;box-shadow:var(--shadow);aspect-ratio:9/16}
+.shots figcaption{font-size:13px;color:var(--ink-3);margin-top:8px}
+@media (max-width:560px){.shots figure{flex-basis:160px}}
+.shot img{width:100%}
