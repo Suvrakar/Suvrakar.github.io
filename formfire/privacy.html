@@ -22,7 +22,7 @@ th{color:var(--muted);font-weight:600;}
 </head>
 <body><main>
 <h1>FormFire Privacy Policy</h1>
-<p><em>Last updated: 26 October 2026</em></p>
+<p><em>Last updated: 11 November 2026</em></p>
 <p>FormFire ("the app") is a fitness coaching app for Android. This policy explains what the app does with your information.</p>
 <p><strong>In short: your workouts, health answers and body data stay on your phone. FormFire has no account system and no servers that receive your personal data. Usage statistics are shared only if you turn them on. The free version shows ads from Google AdMob (section 3); FormFire Pro has no ads.</strong></p>
 <h2>1. Information the app handles</h2>
@@ -66,7 +66,7 @@ th{color:var(--muted);font-weight:600;}
 <td>To estimate your daily calories and nutrient split.</td>
 </tr>
 <tr>
-<td><strong>Health Connect data you allow FormFire to read</strong> (only if you connect Health Connect in Profile): steps today, active calories today, last night's sleep, resting heart rate (last 14 days), heart rate during a workout, and your latest weight (last 90 days)</td>
+<td><strong>Health Connect data you allow FormFire to read</strong> (only if you connect Health Connect in Profile): steps today, active calories today, last night's sleep, resting heart rate (last 14 days), your latest heart rate reading (last 12 hours), heart rate during a workout, and your latest weight (last 90 days)</td>
 <td>Read from Health Connect on your phone when a screen needs it, kept in memory on your phone only. Never uploaded, never sent to analytics, never shared.</td>
 <td>To show what your watch or phone recorded on the Today screen, your heart rate after a workout and in your history, your weight in Profile, and a gentle "consider a lighter day" suggestion. It is a suggestion only, never a diagnosis.</td>
 </tr>
@@ -76,13 +76,23 @@ th{color:var(--muted);font-weight:600;}
 <td>So your FormFire workouts appear alongside your other activity.</td>
 </tr>
 <tr>
+<td><strong>Heart rate from a Bluetooth sensor you pair</strong> (only if you add a chest strap or a watch that broadcasts heart rate in Profile)</td>
+<td>Read live during a workout and kept in memory on your phone for that workout only. Never saved, uploaded or shared. The paired device's name and Bluetooth address are stored only on your phone so FormFire can reconnect to it.</td>
+<td>To show your heart rate and effort zone during a set, and your average and peak heart rate after the workout.</td>
+</tr>
+<tr>
+<td><strong>Feedback you choose to send</strong> (Profile → Send feedback): your message, the app version and the time it was sent</td>
+<td>Sent to and stored in <strong>Google Firebase Realtime Database</strong> (operated by Google). Nothing else is attached: no name, account, device ID or health data.</td>
+<td>So we can read your suggestions and problem reports and improve FormFire. Please do not include personal or health details in your message.</td>
+</tr>
+<tr>
 <td><strong>Notification settings</strong> (eye-break reminder, and the FormFire Pro free-trial reminder date)</td>
 <td>Stored only on your phone.</td>
 <td>To remind you when you asked to be reminded, and once before a free trial ends.</td>
 </tr>
 </tbody>
 </table>
-<p>FormFire does not collect your contacts, location, photos or files. The advertising ID is used only by Google AdMob to show ads in the free version (section 3), never by FormFire itself.</p>
+<p>FormFire does not collect your contacts, location, photos or files. The "Nearby devices" permission is used only to connect to a heart rate sensor you paired, never to find your location. The advertising ID is used only by Google AdMob to show ads in the free version (section 3), never by FormFire itself.</p>
 <h2>2. Optional usage statistics (off by default)</h2>
 <p>If you turn on <strong>Profile → Share anonymous usage stats</strong>, the app sends a small set of anonymous usage events to <strong>Google Analytics for Firebase</strong> (operated by Google):
 - which screens you open;
@@ -101,6 +111,7 @@ th{color:var(--muted);font-weight:600;}
 <p>If you buy FormFire Pro, payment is handled entirely by <strong>Google Play</strong>. FormFire never sees your card or payment details. It only receives confirmation from Google Play that a subscription is active, to unlock Pro features.</p>
 <h2>5. Sharing</h2>
 <p>FormFire does not sell or rent your personal information. Data from Health Connect is used only to show it to you in the app and is never transferred off your phone. Data leaves your phone only through:
+- feedback you choose to send (section 1), stored in Google Firebase;
 - optional usage statistics (section 2), if you turn them on;
 - ads in the free version, which Google AdMob shows (section 3);
 - purchases, which Google Play handles (section 4).</p>
@@ -109,10 +120,11 @@ th{color:var(--muted);font-weight:600;}
 <li><strong>Delete everything:</strong> Profile → Reset all data permanently erases all FormFire data on your phone. Uninstalling the app also deletes it.</li>
 <li><strong>Microphone and camera:</strong> you can withdraw these permissions at any time in your phone's settings.</li>
 <li><strong>Health Connect:</strong> choose exactly what FormFire may read or write on Health Connect's permission screen, and change or withdraw it at any time in Health Connect (Profile → Watch and health data → Manage). "Disconnect" in Profile stops FormFire from using Health Connect. Reset all data clears FormFire's connection setting but never deletes anything stored in Health Connect; workouts FormFire wrote there can be deleted in Health Connect.</li>
+<li><strong>Heart rate sensor:</strong> Profile → Heart rate sensor → Forget sensor removes the paired device from FormFire. You can also withdraw the "Nearby devices" permission in your phone's settings.</li>
 <li><strong>Analytics:</strong> turn it off in Profile at any time.</li>
 <li><strong>Ads:</strong> change your ad consent in Profile → Ad privacy choices (where offered), reset your advertising ID in your phone's settings, or remove all ads with FormFire Pro.</li>
 </ul>
-<p>There is no FormFire account, so there is no data on our side to delete. To remove analytics data already sent to Google, contact us (section 9). We will ask Google to delete data for your app instance where Google supports it.</p>
+<p>There is no FormFire account. The only information FormFire itself keeps off your phone is feedback you choose to send; to have a message deleted, contact us (section 9) with roughly when you sent it and what it said, and we will delete it within 30 days. To remove analytics data already sent to Google, contact us (section 9). We will ask Google to delete data for your app instance where Google supports it.</p>
 <h2>7. Children</h2>
 <p>FormFire is intended for people aged 13 and over. The app asks for your age in the health check and does not allow use under 13. We do not knowingly collect information from children under 13.</p>
 <h2>8. Health disclaimer</h2>
